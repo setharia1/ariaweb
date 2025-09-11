@@ -1,0 +1,25 @@
+# Node/Next build artifacts
+node_modules/
+.next/
+out/
+dist/
+.build/
+.vercel/
+.turbo/
+coverage/
+
+# Env and local config
+.env*
+*.local
+
+# OS/editor files
+.DS_Store
+*.log
+.idea/
+.vscode/
+*.tsbuildinfo
+
+# Debug logs
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
