@@ -27,8 +27,8 @@ interface LangtonsAntProps {
 export default function LangtonsAnt({ intensity = 0.3 }: LangtonsAntProps) {
   const glowCanvasRef = useRef<HTMLCanvasElement>(null);
   const gridCanvasRef = useRef<HTMLCanvasElement>(null);
-  const animationRef = useRef<number>();
-  const resizeObserverRef = useRef<ResizeObserver>();
+  const animationRef = useRef<number | null>(null);
+  const resizeObserverRef = useRef<ResizeObserver | null>(null);
   const [isClient, setIsClient] = useState(false);
   const [opacity, setOpacity] = useState(1);
 
