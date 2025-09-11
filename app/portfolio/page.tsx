@@ -5,7 +5,7 @@ export default function PortfolioPage() {
     {
       name: 'GOOAT',
       summary: 'Consumer platform focused on experiences and local discovery.',
-      logo: '/logos/go-oats.jpeg',
+      logo: '/logos/gooat.png',
     },
     {
       name: 'Aria Monetization',
