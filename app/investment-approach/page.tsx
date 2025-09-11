@@ -20,23 +20,23 @@ export default function InvestmentApproachPage() {
       <Section>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
           <PillarCard
-            title="Real Assets"
-            description="Infrastructure, real estate, and natural resources that provide stable, inflation-protected returns."
-            icon="🏗️"
+            title="Operator‑Built Products"
+            description="We design, build, and operate products in‑house; when traction hits, we spin them out."
+            icon="🛠️"
           />
           <PillarCard
-            title="Private Equity"
-            description="Growth capital and buyout investments in market-leading companies with strong fundamentals."
-            icon="💼"
+            title="Founder Partnerships"
+            description="Pre‑seed and seed investments with builders we know, where we take an active, hands‑on role."
+            icon="🤝"
           />
           <PillarCard
-            title="Venture"
-            description="Early-stage investments in innovative companies shaping the future of technology and society."
-            icon="🚀"
+            title="Revenue & Monetization"
+            description="We help products grow revenue through pricing, funnels, and performance distribution—and share upside."
+            icon="💸"
           />
           <PillarCard
-            title="Long-Only"
-            description="Public market strategies focused on high-conviction, long-term value creation."
+            title="Public Markets"
+            description="Occasional concentrated long‑only positions where we have a durable edge and time horizon."
             icon="📈"
           />
         </div>
