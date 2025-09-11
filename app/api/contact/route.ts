@@ -30,35 +30,7 @@ export async function POST(req: NextRequest) {
     const to = process.env.CONTACT_TO || 'seth@aria.ventures';
     const subject = `New contact from ${name}`;
     const plainText = `From: ${name} <${email}>\n\n${message}`;
-    const hasSmtp = Boolean(process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS);
-    if (hasSmtp) {
-      try {
-        const nodemailer = await import('nodemailer');
-        const transporter = nodemailer.default.createTransport({
-          host: process.env.SMTP_HOST,
-          port: process.env.SMTP_PORT ? Number(process.env.SMTP_PORT) : undefined,
-          secure: process.env.SMTP_SECURE === 'true',
-          auth: {
-            user: process.env.SMTP_USER as string,
-            pass: process.env.SMTP_PASS as string,
-          },
-        });
-
-        await transporter.sendMail({
-          from: process.env.SMTP_FROM || `Aria Website <no-reply@aria.local>`,
-          to,
-          replyTo: email,
-          subject,
-          text: plainText,
-        });
-
-        return NextResponse.json({ ok: true, note: 'Email sent via SMTP' });
-      } catch (smtpErr) {
-        console.error('SMTP error', smtpErr);
-        // Fall through to try Resend below
-      }
-    }
-
+    // Resend-only sending (simpler and reliable on Vercel)
     if (process.env.RESEND_API_KEY) {
       try {
         const res = await fetch('https://api.resend.com/emails', {
@@ -86,9 +58,8 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // Neither SMTP nor Resend configured
-    console.warn('No email provider configured');
-    return NextResponse.json({ ok: false, error: 'No email provider configured.' }, { status: 500 });
+    // No provider configured
+    return NextResponse.json({ ok: false, error: 'Email provider not configured.' }, { status: 500 });
   } catch (err) {
     console.error(err);
     return NextResponse.json({ ok: false, error: 'Unexpected error.' }, { status: 500 });
