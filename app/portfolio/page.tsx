@@ -3,7 +3,7 @@ import Section from '@/components/Section';
 export default function PortfolioPage() {
   const companies = [
     {
-      name: 'Go Outs',
+      name: 'GOOAT',
       summary: 'Consumer platform focused on experiences and local discovery.',
       logo: '/logos/go-oats.jpeg',
     },
