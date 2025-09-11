@@ -26,7 +26,7 @@ export default function Footer({ className }: { className?: string }) {
         }}
       />
       <div className="max-w-7xl mx-auto px-6 xl:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Company Info */}
           <div className="md:col-span-2">
             <h3 className="font-serif text-lg font-semibold mb-4">Aria</h3>
@@ -34,17 +34,6 @@ export default function Footer({ className }: { className?: string }) {
               Building the future through thoughtful investment across real assets, 
               private equity, venture, and public markets.
             </p>
-          </div>
-
-          {/* Quick Links */}
-          <div>
-            <h4 className="font-medium mb-4">Quick Links</h4>
-            <ul className="space-y-2 text-sm">
-              <li><a href="/about" className="text-white/60 hover:text-accent-a transition-colors">About</a></li>
-              <li><a href="/investment-approach" className="text-white/60 hover:text-accent-a transition-colors">Investment Approach</a></li>
-              <li><a href="/portfolio" className="text-white/60 hover:text-accent-a transition-colors">Portfolio</a></li>
-              <li><a href="/team" className="text-white/60 hover:text-accent-a transition-colors">Team</a></li>
-            </ul>
           </div>
 
           {/* Legal */}
