@@ -8,6 +8,7 @@ import BackgroundParticles from '@/components/BackgroundParticles';
 import LangtonsAnt from '@/components/LangtonsAnt';
 import CursorAura from '@/components/CursorAura';
 import DevUtils from '@/components/DevUtils';
+import PageTransition from '@/components/PageTransition';
 
 export const metadata: Metadata = {
   title: 'Aria',
@@ -39,7 +40,11 @@ export default function RootLayout({
           {/* Site content (z-10) */}
           <div className="relative z-10 flex flex-col min-h-[100svh]">
             <Header />
-            <div className="flex-1">{children}</div>
+            <div className="flex-1">
+              <PageTransition>
+                {children}
+              </PageTransition>
+            </div>
             <Footer className="mt-auto" />
           </div>
         </ThemeProvider>
