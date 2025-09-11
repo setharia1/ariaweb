@@ -1,9 +1,10 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, cubicBezier } from "framer-motion";
 import { usePathname } from "next/navigation";
 
 function getAnimation(pathname: string) {
+  const easeStandard = cubicBezier(0.16, 1, 0.3, 1);
   // Subtle, route‑specific page animations
   if (pathname.startsWith("/about")) {
     return {
@@ -12,7 +13,7 @@ function getAnimation(pathname: string) {
         in: { opacity: 1, y: 0 },
         out: { opacity: 0, y: -12 },
       },
-      transition: { type: "tween" as const, ease: [0.16, 1, 0.3, 1], duration: 0.28 },
+      transition: { type: "tween" as const, ease: easeStandard, duration: 0.28 },
     };
   }
 
@@ -23,7 +24,7 @@ function getAnimation(pathname: string) {
         in: { opacity: 1, scale: 1, y: 0 },
         out: { opacity: 0, scale: 0.985, y: -6 },
       },
-      transition: { type: "tween" as const, ease: [0.16, 1, 0.3, 1], duration: 0.3 },
+      transition: { type: "tween" as const, ease: easeStandard, duration: 0.3 },
     };
   }
 
@@ -34,7 +35,7 @@ function getAnimation(pathname: string) {
         in: { opacity: 1, x: 0 },
         out: { opacity: 0, x: -12 },
       },
-      transition: { type: "tween" as const, ease: [0.16, 1, 0.3, 1], duration: 0.28 },
+      transition: { type: "tween" as const, ease: easeStandard, duration: 0.28 },
     };
   }
 
@@ -45,7 +46,7 @@ function getAnimation(pathname: string) {
         in: { opacity: 1, x: 0 },
         out: { opacity: 0, x: 12 },
       },
-      transition: { type: "tween" as const, ease: [0.16, 1, 0.3, 1], duration: 0.28 },
+      transition: { type: "tween" as const, ease: easeStandard, duration: 0.28 },
     };
   }
 
@@ -56,7 +57,7 @@ function getAnimation(pathname: string) {
         in: { opacity: 1, filter: "blur(0px)", y: 0 },
         out: { opacity: 0, filter: "blur(4px)", y: -8 },
       },
-      transition: { type: "tween" as const, ease: [0.16, 1, 0.3, 1], duration: 0.32 },
+      transition: { type: "tween" as const, ease: easeStandard, duration: 0.32 },
     };
   }
 
@@ -67,7 +68,7 @@ function getAnimation(pathname: string) {
         in: { opacity: 1, scale: 1 },
         out: { opacity: 0, scale: 0.99 },
       },
-      transition: { type: "tween" as const, ease: [0.16, 1, 0.3, 1], duration: 0.26 },
+      transition: { type: "tween" as const, ease: easeStandard, duration: 0.26 },
     };
   }
 
@@ -78,7 +79,7 @@ function getAnimation(pathname: string) {
       in: { opacity: 1, y: 0 },
       out: { opacity: 0, y: -20 },
     },
-    transition: { type: "tween" as const, ease: [0.16, 1, 0.3, 1], duration: 0.25 },
+    transition: { type: "tween" as const, ease: easeStandard, duration: 0.25 },
   };
 }
 
