@@ -33,7 +33,8 @@ export async function POST(req: NextRequest) {
 
     // Try SMTP via nodemailer if available
     try {
-      const nodemailer = await import('nodemailer');
+      // @ts-expect-error nodemailer types may not be present in some CI builds
+      const nodemailer: any = await import('nodemailer');
       const transporter = nodemailer.default.createTransport({
         host: process.env.SMTP_HOST,
         port: process.env.SMTP_PORT ? Number(process.env.SMTP_PORT) : undefined,
