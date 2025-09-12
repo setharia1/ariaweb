@@ -4,14 +4,14 @@ export default function TeamPage() {
   const team = [
     {
       name: 'Seth Liassides',
-      title: 'Co‑Founder & Investment Partner',
+      title: 'Co‑Founder & Investing Partner',
       bio: 'Co‑founder of Aria. Experienced across investing and company building.',
       // Add a photo for Seth here if/when available, e.g. '/team/seth.jpg'
       photo: undefined as unknown as string | undefined,
     },
     {
       name: 'Marcus Liassides',
-      title: 'Founder & Investment Partner',
+      title: 'Founder & Investing Partner',
       bio: 'Seasoned operator and investor supporting Aria’s growth.',
       // Headshot stored in public/team/IMG_2093.jpg
       photo: '/team/IMG_2093.jpg',
