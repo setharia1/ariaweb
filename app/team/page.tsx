@@ -5,7 +5,7 @@ export default function TeamPage() {
     {
       name: 'Seth Liassides',
       title: 'Co‑Founder & Investing Partner',
-      bio: 'Co‑founder and investing partner at Aria focused on operator‑built products and founder partnerships at pre‑seed and seed. Works hands‑on with teams on product, distribution, and monetization; leads diligence on revenue models and go‑to‑market; occasionally pursues concentrated long‑only positions in public markets.',
+      bio: 'Co‑founder and investing partner at Aria focused on operator‑built products and founder partnerships at pre‑seed and seed. Works hands‑on with teams on product, distribution, and monetization; leads diligence on revenue models and go‑to‑market.',
       // Add a photo for Seth here if/when available, e.g. '/team/seth.jpg'
       photo: undefined as unknown as string | undefined,
     },
