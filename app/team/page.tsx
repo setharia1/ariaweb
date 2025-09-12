@@ -12,7 +12,7 @@ export default function TeamPage() {
     {
       name: 'Marcus Liassides',
       title: 'Founder & Investing Partner',
-      bio: 'Seasoned operator and investor supporting Aria’s growth.',
+      bio: 'Founder & operator with 20+ years in digital media and TV. Founded Inuk Networks (Freewire IPTV; acquired by Move Networks), served as CEO of Move Networks (adaptive bitrate streaming), and held leadership roles at Specific Media/Viant, Xumo, and Sorenson Media. Focused on product, distribution, and monetization.',
       // Headshot stored in public/team/IMG_2093.jpg
       photo: '/team/IMG_2093.jpg',
     }
