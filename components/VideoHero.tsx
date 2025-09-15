@@ -119,6 +119,10 @@ export default function VideoHero({ className = '', src = '/media/aria-hero.mp4'
             aria-hidden="true"
           />
 
+          {/* Stronger vertical fades to blend top/bottom edges into surrounding sections */}
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-24 md:h-32 bg-gradient-to-b from-black/70 via-black/40 to-transparent" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 md:h-40 bg-gradient-to-t from-black/70 via-black/40 to-transparent" />
+
           {/* Subtle vignette and edge sheen to match site aesthetic */}
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/10" />
           <div className="pointer-events-none absolute inset-0 ring-1 ring-white/10 md:rounded-3xl" />
