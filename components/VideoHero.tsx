@@ -79,7 +79,7 @@ export default function VideoHero({ className = '', src = '/media/aria-hero.mp4'
 
   return (
     <section className={clsx('py-12 md:py-16', className)} aria-label="Hero video">
-      <div className="px-0">
+      <div className="px-0 relative">
         <div className="relative overflow-hidden bg-black/50 aspect-[16/9] md:rounded-3xl">
           {/* Video A */}
           <video
@@ -127,6 +127,8 @@ export default function VideoHero({ className = '', src = '/media/aria-hero.mp4'
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/20" />
           <div className="pointer-events-none absolute inset-0 ring-1 ring-white/10 md:rounded-3xl" />
         </div>
+        {/* Soft bottom glow bleed to blend into next section */}
+        <div className="pointer-events-none absolute inset-x-0 -bottom-8 md:-bottom-10 h-20 md:h-28 bg-gradient-to-b from-black/40 via-black/20 to-transparent blur-md" />
       </div>
     </section>
   );
