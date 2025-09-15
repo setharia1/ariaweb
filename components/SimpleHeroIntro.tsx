@@ -66,7 +66,8 @@ export default function SimpleHeroIntro() {
       {/* Word Morphing Sequence */}
       {!showFinalContent && (
         <div className="relative z-10 text-center select-none w-full">
-          <h1 className="font-serif text-[88px] leading-[0.95] sm:text-[112px] md:text-[136px] tracking-tight text-white/90 transition-all duration-500">
+          {/* Use viewport-based sizing on mobile so long words fit */}
+          <h1 className="font-serif text-[11vw] sm:text-[9vw] md:text-[120px] leading-[0.95] tracking-tight text-white/90 transition-all duration-500">
             <span
               className={`inline-block transition-all duration-500 ${
                 phase === 0 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
