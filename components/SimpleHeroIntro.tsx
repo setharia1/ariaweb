@@ -16,14 +16,14 @@ export default function SimpleHeroIntro() {
 
     const timers: number[] = [];
     
-    // Morphing sequence: ARIA → THOUGHTFUL → INVESTMENT → final
+    // Faster morphing sequence: ARIA → THOUGHTFUL → INVESTMENT → final
     timers.push(window.setTimeout(() => setPhase(0), 0));
-    timers.push(window.setTimeout(() => setPhase(1), 1800));
-    timers.push(window.setTimeout(() => setPhase(2), 3600));
+    timers.push(window.setTimeout(() => setPhase(1), 1200));
+    timers.push(window.setTimeout(() => setPhase(2), 2400));
     timers.push(window.setTimeout(() => {
       setPhase(3);
       setShowFinalContent(true);
-    }, 5400));
+    }, 3600));
 
     return () => {
       timers.forEach(clearTimeout);
