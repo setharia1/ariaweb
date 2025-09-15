@@ -26,7 +26,6 @@ export default function VideoHero({ className = '', src = '/media/aria-hero.mp4'
             disablePictureInPicture
             controlsList="nodownload noplaybackrate nofullscreen noremoteplayback"
             aria-hidden="true"
-            onContextMenu={(e) => e.preventDefault()}
           />
 
           {/* Subtle vignette and edge sheen to match site aesthetic */}
