@@ -14,7 +14,7 @@ export default function VideoHero({ className = '', src = '/media/aria-hero.mp4'
       <div className="px-0">
         <div className="relative overflow-hidden bg-black/50 aspect-[16/9] md:rounded-3xl">
           <video
-            className="absolute inset-0 w-full h-full object-cover"
+            className="absolute inset-0 w-full h-full object-cover pointer-events-none"
             src={src}
             poster={poster}
             muted
@@ -22,6 +22,11 @@ export default function VideoHero({ className = '', src = '/media/aria-hero.mp4'
             autoPlay
             loop
             preload="metadata"
+            controls={false}
+            disablePictureInPicture
+            controlsList="nodownload noplaybackrate nofullscreen noremoteplayback"
+            aria-hidden="true"
+            onContextMenu={(e) => e.preventDefault()}
           />
 
           {/* Subtle vignette and edge sheen to match site aesthetic */}
