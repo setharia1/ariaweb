@@ -61,9 +61,9 @@ export default function MobileStacked({ items, intervalMs = 4000, className = ''
           if (role === 'hidden') return null;
 
           const variants = {
-            prev: { x: '-60%', scale: 0.92, opacity: 0.65, filter: 'blur(0px)' },
-            center: { x: '0%', scale: 1, opacity: 1, filter: 'blur(0px)' },
-            next: { x: '60%', scale: 0.92, opacity: 0.65, filter: 'blur(0px)' },
+            prev: { x: '-115%', scale: 0.9, opacity: 0.35, filter: 'blur(1px)' },
+            center: { x: '0%',    scale: 1.0, opacity: 1.0, filter: 'blur(0px)' },
+            next: { x: '115%',  scale: 0.9, opacity: 0.35, filter: 'blur(1px)' },
           } as const;
 
           return (
@@ -72,7 +72,7 @@ export default function MobileStacked({ items, intervalMs = 4000, className = ''
               initial={variants[role as 'prev' | 'center' | 'next']}
               animate={variants[role as 'prev' | 'center' | 'next']}
               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="absolute left-1/2 -translate-x-1/2 w-[92%]"
+              className="absolute left-1/2 -translate-x-1/2 w-[86%]"
               style={{ zIndex: role === 'center' ? 30 : 20, pointerEvents: role === 'center' ? 'auto' as const : 'none' as const }}
             >
               {node}
