@@ -61,9 +61,9 @@ export default function MobileStacked({ items, intervalMs = 4000, className = ''
           if (role === 'hidden') return null;
 
           const variants = {
-            prev: { x: '-115%', scale: 0.9, opacity: 0.35, filter: 'blur(1px)' },
-            center: { x: '0%',    scale: 1.0, opacity: 1.0, filter: 'blur(0px)' },
-            next: { x: '115%',  scale: 0.9, opacity: 0.35, filter: 'blur(1px)' },
+            prev: { x: '-100%', scale: 0.9, opacity: 0.35, filter: 'blur(1px)' },
+            center: { x: '0%',   scale: 1.0, opacity: 1.0,  filter: 'blur(0px)' },
+            next: { x: '100%',  scale: 0.9, opacity: 0.35, filter: 'blur(1px)' },
           } as const;
 
           return (
@@ -72,10 +72,10 @@ export default function MobileStacked({ items, intervalMs = 4000, className = ''
               initial={variants[role as 'prev' | 'center' | 'next']}
               animate={variants[role as 'prev' | 'center' | 'next']}
               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-[86%] flex items-center"
+              className="absolute inset-y-0 left-1/2 w-[86%] flex items-center"
               style={{ zIndex: role === 'center' ? 30 : 20, pointerEvents: role === 'center' ? 'auto' as const : 'none' as const }}
             >
-              <div className="w-full">
+              <div className="w-full -translate-x-1/2">
                 {node}
               </div>
             </motion.div>
