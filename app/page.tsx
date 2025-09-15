@@ -12,7 +12,7 @@ export default function HomePage() {
   return (
     <main className="relative z-10">
       {/* Hero: replace title/subtitle with an embedded video block */}
-      <VideoHero />
+      <VideoHero src="/media/aria%20video.mp4" />
       <SectionSeparator variant="bottom" />
       
       {/* Investment Pillars Teaser */}
