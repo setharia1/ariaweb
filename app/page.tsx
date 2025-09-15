@@ -5,15 +5,14 @@ import KPICounters from '@/components/KPICounters';
 import SectionSeparator from '@/components/SectionSeparator';
 import ScrollReveal from '@/components/ScrollReveal';
 import MobileSwipe from '@/components/MobileSwipe';
+import VideoHero from '@/components/VideoHero';
 import InvestmentApproachSection from '@/components/InvestmentApproachSection';
 
 export default function HomePage() {
   return (
     <main className="relative z-10">
-      {/* Hero Section */}
-      <IntroGate />
-      
-      {/* Section Separator */}
+      {/* Hero: replace title/subtitle with an embedded video block */}
+      <VideoHero />
       <SectionSeparator variant="bottom" />
       
       {/* Investment Pillars Teaser */}
