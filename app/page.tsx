@@ -3,13 +3,19 @@ import KPICounters from '@/components/KPICounters';
 import SectionSeparator from '@/components/SectionSeparator';
 import MobileSwipe from '@/components/MobileSwipe';
 import VideoHero from '@/components/VideoHero';
+import SimpleHeroIntro from '@/components/SimpleHeroIntro';
 import InvestmentApproachSection from '@/components/InvestmentApproachSection';
 
 export default function HomePage() {
   return (
     <main className="relative z-10">
-      {/* Hero: replace title/subtitle with an embedded video block */}
-      <VideoHero src="/media/aria%20video.mp4" />
+      {/* Hero: show video on md+ screens; show original hero on mobile */}
+      <div className="hidden md:block">
+        <VideoHero src="/media/aria%20video.mp4" />
+      </div>
+      <div className="block md:hidden">
+        <SimpleHeroIntro />
+      </div>
       <SectionSeparator variant="bottom" />
       
       {/* Investment Pillars Teaser */}
