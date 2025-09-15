@@ -158,8 +158,8 @@ export default function KPICounters() {
         {isMobile ? (
           <MobileStacked
             items={kpiData.map((kpi, index) => renderCard(kpi as any, index, false))}
-            intervalMs={1600}
-            className="mt-2"
+            intervalMs={4000}
+            className="mt-2 -mx-6"
           />
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">

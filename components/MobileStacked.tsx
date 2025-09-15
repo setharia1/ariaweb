@@ -72,10 +72,12 @@ export default function MobileStacked({ items, intervalMs = 4000, className = ''
               initial={variants[role as 'prev' | 'center' | 'next']}
               animate={variants[role as 'prev' | 'center' | 'next']}
               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="absolute left-1/2 -translate-x-1/2 w-[86%]"
+              className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-[86%] flex items-center"
               style={{ zIndex: role === 'center' ? 30 : 20, pointerEvents: role === 'center' ? 'auto' as const : 'none' as const }}
             >
-              {node}
+              <div className="w-full">
+                {node}
+              </div>
             </motion.div>
           );
         })}

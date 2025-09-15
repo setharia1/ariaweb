@@ -53,8 +53,8 @@ export default function InvestmentApproachSection() {
     return (
       <MobileStacked
         items={items}
-        intervalMs={1600}
-        className="px-1"
+        intervalMs={4000}
+        className="-mx-6"
       />
     );
   }
