@@ -6,12 +6,12 @@ export default function ContactPage() {
   const success = typeof window !== 'undefined' ? new URLSearchParams(window.location.search).get('sent') === '1' : false;
   return (
     <>
-      <Section className="pt-32">
+      <Section className="pt-24 md:pt-32">
         <div className="text-center mb-16">
-          <h1 className="font-serif text-4xl md:text-5xl t-strong mb-6">
+          <h1 className="font-serif text-3xl md:text-5xl t-strong mb-6">
             Contact
           </h1>
-          <p className="t-muted max-w-3xl mx-auto text-lg">
+          <p className="t-muted max-w-3xl mx-auto text-base md:text-lg">
             We welcome the opportunity to discuss potential partnerships 
             and investment opportunities with like-minded organizations.
           </p>
@@ -19,8 +19,8 @@ export default function ContactPage() {
       </Section>
 
       <Section>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          <div className="card p-8 glowable">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
+          <div className="card p-6 md:p-8 glowable">
             <h2 className="font-serif text-2xl t-strong mb-6">
               Get in Touch
             </h2>

@@ -3,12 +3,12 @@ import Section from '@/components/Section';
 export default function AboutPage() {
   return (
     <>
-      <Section className="pt-28">
+      <Section className="pt-24 md:pt-32">
         <div className="text-center mb-16">
-          <h1 className="font-serif text-4xl md:text-5xl t-strong mb-6">
+          <h1 className="font-serif text-3xl md:text-5xl t-strong mb-6">
             Our Heritage
           </h1>
-          <p className="t-muted max-w-3xl mx-auto text-lg">
+          <p className="t-muted max-w-3xl mx-auto text-base md:text-lg">
             Aria is an owner–operator investing platform led by Marcus Liassides (Founder & Investment Partner)
             and Seth Liassides (Co‑Founder & Investment Partner). We blend a builder’s mindset with disciplined
             investing—prioritizing durable cash flows, clear unit economics, and responsible growth.
@@ -17,7 +17,7 @@ export default function AboutPage() {
       </Section>
 
       <Section>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10 items-start">
           <div>
             <h2 className="font-serif text-3xl t-strong mb-6">
               Built by operators, guided by stewardship
@@ -33,7 +33,7 @@ export default function AboutPage() {
               founders, and measurable progress.
             </p>
           </div>
-          <div className="card p-8 glowable">
+          <div className="card p-6 md:p-8 glowable">
             <h3 className="font-serif text-xl t-strong mb-4">Our values</h3>
             <ul className="space-y-3">
               <li className="flex items-start gap-3"><span className="text-accent-a mt-1">•</span><span className="t-muted">Performance with principles—cash flow, unit economics, and safeguards.</span></li>

@@ -5,12 +5,12 @@ import RequestDraft from '@/components/RequestDraft';
 export default function InsightsPage() {
   return (
     <>
-      <Section className="pt-32">
+      <Section className="pt-24 md:pt-32">
         <div className="text-center mb-16">
-          <h1 className="font-serif text-4xl md:text-5xl t-strong mb-6">
+          <h1 className="font-serif text-3xl md:text-5xl t-strong mb-6">
             Insights
           </h1>
-          <p className="t-muted max-w-3xl mx-auto text-lg">
+          <p className="t-muted max-w-3xl mx-auto text-base md:text-lg">
             Ideas, research, and commentary.
           </p>
         </div>
@@ -28,7 +28,7 @@ export default function InsightsPage() {
             </div>
           </ScrollReveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             {[
               { icon: '🛠️', title: 'Pricing As A Product', excerpt: 'A practical approach to packaging, ladders, and willingness‑to‑pay tests.' },
               { icon: '💰', title: 'Monetization Funnels', excerpt: 'Designing upgrade paths that compound ARPU without hurting activation.' },
@@ -38,9 +38,9 @@ export default function InsightsPage() {
               { icon: '🗺️', title: 'Quarterly Market Notes', excerpt: 'What changed this quarter: distribution, infra, and consumer behavior shifts.' },
             ].map((p) => (
               <ScrollReveal key={p.title}>
-                <div className="card p-6 glowable h-full flex flex-col">
+                <div className="card p-5 md:p-6 glowable h-full flex flex-col">
                   <div className="text-3xl mb-3">{p.icon}</div>
-                  <h3 className="font-serif text-lg t-strong mb-2">{p.title}</h3>
+                  <h3 className="font-serif text-base md:text-lg t-strong mb-2">{p.title}</h3>
                   <p className="t-muted text-sm flex-1">{p.excerpt}</p>
                   <RequestDraft postTitle={p.title} />
                 </div>
@@ -51,7 +51,7 @@ export default function InsightsPage() {
       </Section>
 
       <Section>
-        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
           <ScrollReveal>
             <div className="card p-6 glowable">
               <h3 className="font-serif text-xl t-strong mb-2">Templates & Tools</h3>
