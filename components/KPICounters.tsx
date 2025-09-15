@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
+import MobileStacked from '@/components/MobileStacked';
 
 interface KPICounterProps {
   value: number;
@@ -80,6 +81,62 @@ const kpiData = [
 ];
 
 export default function KPICounters() {
+  const getIsMobileEnabled = () => {
+    if (typeof window === 'undefined') return false;
+    const coarse = window.matchMedia('(pointer: coarse)').matches;
+    const narrow = window.matchMedia('(max-width: 768px)').matches;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    return coarse && narrow && !reduce;
+  };
+  const [isMobile, setIsMobile] = useState<boolean>(getIsMobileEnabled);
+
+  useEffect(() => {
+    const onResize = () => setIsMobile(getIsMobileEnabled());
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+
+  const renderCard = (kpi: any, index: number, useMotion: boolean) => {
+    const content = (
+      <div className="card p-6 card-hover">
+        <div className="text-3xl md:text-4xl font-bold text-accent-a mb-2">
+          <KPICounter 
+            value={kpi.value}
+            prefix={kpi.prefix as any}
+            suffix={kpi.suffix as any}
+            format={kpi.formatter as any}
+            duration={2000 + index * 200}
+          />
+        </div>
+        <h3 className="font-serif text-lg font-semibold t-strong mb-2">
+          {kpi.label}
+        </h3>
+        <p className="text-sm t-muted">
+          {kpi.description}
+        </p>
+      </div>
+    );
+
+    if (!useMotion) return <div className="text-center group" key={kpi.label}>{content}</div>;
+
+    return (
+      <motion.div
+        key={kpi.label}
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ 
+          duration: 0.5,
+          delay: index * 0.1,
+          ease: [0.16, 1, 0.3, 1]
+        }}
+        className="text-center group"
+      >
+        {content}
+      </motion.div>
+    );
+  };
+
   return (
     <section className="py-20 bg-gradient-to-b from-transparent to-navy/20">
       <div className="mx-auto max-w-7xl px-6 xl:px-8">
@@ -98,40 +155,17 @@ export default function KPICounters() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-          {kpiData.map((kpi, index) => (
-            <motion.div
-              key={kpi.label}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ 
-                duration: 0.5,
-                delay: index * 0.1,
-                ease: [0.16, 1, 0.3, 1]
-              }}
-              className="text-center group"
-            >
-              <div className="card p-6 card-hover">
-                <div className="text-3xl md:text-4xl font-bold text-accent-a mb-2">
-                  <KPICounter 
-                    value={kpi.value}
-                    prefix={(kpi as any).prefix}
-                    suffix={(kpi as any).suffix}
-                    format={(kpi as any).formatter}
-                    duration={2000 + index * 200}
-                  />
-                </div>
-                <h3 className="font-serif text-lg font-semibold t-strong mb-2">
-                  {kpi.label}
-                </h3>
-                <p className="text-sm t-muted">
-                  {kpi.description}
-                </p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+        {isMobile ? (
+          <MobileStacked
+            items={kpiData.map((kpi, index) => renderCard(kpi as any, index, false))}
+            intervalMs={1600}
+            className="mt-2"
+          />
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+            {kpiData.map((kpi, index) => renderCard(kpi as any, index, true))}
+          </div>
+        )}
       </div>
     </section>
   );
