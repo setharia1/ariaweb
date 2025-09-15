@@ -1,6 +1,6 @@
 'use client';
 
-import { AnimatePresence, motion, useInView } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import { ReactNode, useEffect, useMemo, useRef, useState } from 'react';
 
 interface MobileStackedProps {
@@ -18,7 +18,7 @@ function getIsMobileEnabled(): boolean {
   return coarse && narrow && !reduce;
 }
 
-export default function MobileStacked({ items, intervalMs = 2600, className = '', desktopClassName = '' }: MobileStackedProps) {
+export default function MobileStacked({ items, intervalMs = 4000, className = '', desktopClassName = '' }: MobileStackedProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { amount: 0.4, once: false });
   const [isMobile, setIsMobile] = useState<boolean>(getIsMobileEnabled);
@@ -38,7 +38,7 @@ export default function MobileStacked({ items, intervalMs = 2600, className = ''
     return () => clearInterval(id);
   }, [isMobile, isInView, items.length, intervalMs]);
 
-  // Option A: single active card, no background preview, autoplay fade-and-swipe
+  // Peek carousel: one centered card, neighbors peek left/right, slide swap
 
   if (!isMobile) {
     return (
@@ -52,19 +52,33 @@ export default function MobileStacked({ items, intervalMs = 2600, className = ''
 
   return (
     <div ref={containerRef} className={`relative ${className}`}>
-      <div className="relative min-h-[240px]">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeIndex}
-            initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -60 }}
-            transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-            className="relative"
-          >
-            {items[activeIndex]}
-          </motion.div>
-        </AnimatePresence>
+      <div className="relative min-h-[240px] overflow-hidden">
+        {items.map((node, i) => {
+          const total = items.length;
+          if (total === 0) return null;
+          const deltaRaw = (i - activeIndex + total) % total; // 0..total-1
+          const role = deltaRaw === 0 ? 'center' : deltaRaw === 1 ? 'next' : deltaRaw === total - 1 ? 'prev' : 'hidden';
+          if (role === 'hidden') return null;
+
+          const variants = {
+            prev: { x: '-60%', scale: 0.92, opacity: 0.65, filter: 'blur(0px)' },
+            center: { x: '0%', scale: 1, opacity: 1, filter: 'blur(0px)' },
+            next: { x: '60%', scale: 0.92, opacity: 0.65, filter: 'blur(0px)' },
+          } as const;
+
+          return (
+            <motion.div
+              key={i}
+              initial={variants[role as 'prev' | 'center' | 'next']}
+              animate={variants[role as 'prev' | 'center' | 'next']}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              className="absolute left-1/2 -translate-x-1/2 w-[92%]"
+              style={{ zIndex: role === 'center' ? 30 : 20, pointerEvents: role === 'center' ? 'auto' as const : 'none' as const }}
+            >
+              {node}
+            </motion.div>
+          );
+        })}
       </div>
     </div>
   );
