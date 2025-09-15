@@ -14,8 +14,16 @@ export default function SimpleHeroIntro() {
   useEffect(() => {
     if (!isClient) return;
 
+    // If intro has been seen this session, skip directly to final state
+    const seen = typeof window !== 'undefined' && sessionStorage.getItem('introSeen') === '1';
+    if (seen) {
+      setPhase(3);
+      setShowFinalContent(true);
+      return;
+    }
+
     const timers: number[] = [];
-    
+
     // Faster morphing sequence: ARIA → THOUGHTFUL → INVESTMENT → final
     timers.push(window.setTimeout(() => setPhase(0), 0));
     timers.push(window.setTimeout(() => setPhase(1), 1200));
@@ -23,6 +31,7 @@ export default function SimpleHeroIntro() {
     timers.push(window.setTimeout(() => {
       setPhase(3);
       setShowFinalContent(true);
+      try { sessionStorage.setItem('introSeen', '1'); } catch {}
     }, 3600));
 
     return () => {
