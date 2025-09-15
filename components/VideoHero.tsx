@@ -81,43 +81,54 @@ export default function VideoHero({ className = '', src = '/media/aria-hero.mp4'
     <section className={clsx('py-12 md:py-16', className)} aria-label="Hero video">
       <div className="px-0 relative">
         <div className="relative overflow-hidden bg-black/50 aspect-[16/9] md:rounded-3xl">
-          {/* Video A */}
-          <video
-            ref={videoARef}
-            className={clsx(
-              'absolute inset-0 w-full h-full object-cover pointer-events-none transition-opacity',
-              active === 'a' ? 'opacity-100' : 'opacity-0'
-            )}
-            style={{ transitionDuration: `${FADE_MS}ms` }}
-            src={src}
-            poster={poster}
-            muted
-            playsInline
-            autoPlay
-            preload="auto"
-            controls={false}
-            disablePictureInPicture
-            controlsList="nodownload noplaybackrate nofullscreen noremoteplayback"
-            aria-hidden="true"
-          />
+          {/* Masked layer that fades top/bottom edges of the video content */}
+          <div
+            className="absolute inset-0"
+            style={{
+              WebkitMaskImage:
+                'linear-gradient(to bottom, transparent 0%, black 18%, black 82%, transparent 100%)',
+              maskImage:
+                'linear-gradient(to bottom, transparent 0%, black 18%, black 82%, transparent 100%)',
+            }}
+          >
+            {/* Video A */}
+            <video
+              ref={videoARef}
+              className={clsx(
+                'absolute inset-0 w-full h-full object-cover pointer-events-none transition-opacity',
+                active === 'a' ? 'opacity-100' : 'opacity-0'
+              )}
+              style={{ transitionDuration: `${FADE_MS}ms` }}
+              src={src}
+              poster={poster}
+              muted
+              playsInline
+              autoPlay
+              preload="auto"
+              controls={false}
+              disablePictureInPicture
+              controlsList="nodownload noplaybackrate nofullscreen noremoteplayback"
+              aria-hidden="true"
+            />
 
-          {/* Video B (used for crossfade) */}
-          <video
-            ref={videoBRef}
-            className={clsx(
-              'absolute inset-0 w-full h-full object-cover pointer-events-none transition-opacity',
-              active === 'b' ? 'opacity-100' : 'opacity-0'
-            )}
-            style={{ transitionDuration: `${FADE_MS}ms` }}
-            src={src}
-            muted
-            playsInline
-            preload="auto"
-            controls={false}
-            disablePictureInPicture
-            controlsList="nodownload noplaybackrate nofullscreen noremoteplayback"
-            aria-hidden="true"
-          />
+            {/* Video B (used for crossfade) */}
+            <video
+              ref={videoBRef}
+              className={clsx(
+                'absolute inset-0 w-full h-full object-cover pointer-events-none transition-opacity',
+                active === 'b' ? 'opacity-100' : 'opacity-0'
+              )}
+              style={{ transitionDuration: `${FADE_MS}ms` }}
+              src={src}
+              muted
+              playsInline
+              preload="auto"
+              controls={false}
+              disablePictureInPicture
+              controlsList="nodownload noplaybackrate nofullscreen noremoteplayback"
+              aria-hidden="true"
+            />
+          </div>
 
           {/* Stronger vertical fades to blend top/bottom edges into surrounding sections */}
           <div className="pointer-events-none absolute inset-x-0 top-0 h-32 md:h-44 bg-gradient-to-b from-black/90 via-black/60 to-transparent" />
