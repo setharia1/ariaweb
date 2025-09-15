@@ -4,12 +4,12 @@ import PillarCard from '@/components/PillarCard';
 export default function InvestmentApproachPage() {
   return (
     <>
-      <Section className="pt-32">
+      <Section className="pt-24 md:pt-32">
         <div className="text-center mb-16">
-          <h1 className="font-serif text-4xl md:text-5xl t-strong mb-6">
+          <h1 className="font-serif text-3xl md:text-5xl t-strong mb-6">
             Investment Approach
           </h1>
-          <p className="t-muted max-w-3xl mx-auto text-lg">
+          <p className="t-muted max-w-3xl mx-auto text-base md:text-lg">
             Our disciplined approach combines deep fundamental analysis with 
             long-term thinking to identify and capitalize on opportunities 
             across diverse asset classes and market cycles.
@@ -18,7 +18,7 @@ export default function InvestmentApproachPage() {
       </Section>
 
       <Section>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-12 md:mb-16">
           <PillarCard
             title="Operator‑Built Products"
             description="We design, build, and operate products in‑house; when traction hits, we spin them out."
@@ -43,8 +43,8 @@ export default function InvestmentApproachPage() {
       </Section>
 
       <Section>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          <div className="card p-8 glowable">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
+          <div className="card p-6 md:p-8 glowable">
             <h2 className="font-serif text-2xl t-strong mb-6">
               Our Process
             </h2>
@@ -80,7 +80,7 @@ export default function InvestmentApproachPage() {
             </div>
           </div>
 
-          <div className="card p-8 glowable">
+          <div className="card p-6 md:p-8 glowable">
             <h2 className="font-serif text-2xl t-strong mb-6">
               Investment Philosophy
             </h2>

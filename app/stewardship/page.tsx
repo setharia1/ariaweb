@@ -3,13 +3,13 @@ import Section from '@/components/Section';
 export default function StewardshipPage() {
   return (
     <>
-      <Section className="pt-28">
+      <Section className="pt-24 md:pt-32">
         <div className="text-center mb-16">
           
-          <h1 className="font-serif text-4xl md:text-5xl t-strong mb-6">
+          <h1 className="font-serif text-3xl md:text-5xl t-strong mb-6">
             Stewardship
           </h1>
-          <p className="t-muted max-w-3xl mx-auto text-lg">
+          <p className="t-muted max-w-3xl mx-auto text-base md:text-lg">
             We believe that responsible investment practices create 
             long-term value for all stakeholders and contribute to 
             a more sustainable future.
@@ -19,7 +19,7 @@ export default function StewardshipPage() {
 
       <Section>
         <div className="-mt-4 grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <div className="card p-8 glowable">
+          <div className="card p-6 md:p-8 glowable">
             <h2 className="font-serif text-2xl t-strong mb-6">
               Environmental, Social & Governance
             </h2>
@@ -59,7 +59,7 @@ export default function StewardshipPage() {
             </div>
           </div>
 
-          <div className="card p-8 glowable">
+          <div className="card p-6 md:p-8 glowable">
             <h2 className="font-serif text-2xl t-strong mb-6">
               Impact Measurement
             </h2>
