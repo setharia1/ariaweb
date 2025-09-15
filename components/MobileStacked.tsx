@@ -23,6 +23,9 @@ export default function MobileStacked({ items, intervalMs = 4000, className = ''
   const isInView = useInView(containerRef, { amount: 0.4, once: false });
   const [isMobile, setIsMobile] = useState<boolean>(getIsMobileEnabled);
   const [activeIndex, setActiveIndex] = useState<number>(0);
+  const timerRef = useRef<number | null>(null);
+  const touchStartX = useRef<number | null>(null);
+  const touchStartY = useRef<number | null>(null);
 
   useEffect(() => {
     const onResize = () => setIsMobile(getIsMobileEnabled());
@@ -32,10 +35,14 @@ export default function MobileStacked({ items, intervalMs = 4000, className = ''
 
   useEffect(() => {
     if (!isMobile || !isInView || items.length <= 1) return;
-    const id = setInterval(() => {
+    if (timerRef.current) window.clearInterval(timerRef.current);
+    timerRef.current = window.setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % items.length);
     }, intervalMs);
-    return () => clearInterval(id);
+    return () => {
+      if (timerRef.current) window.clearInterval(timerRef.current);
+      timerRef.current = null;
+    };
   }, [isMobile, isInView, items.length, intervalMs]);
 
   // Peek carousel: one centered card, neighbors peek left/right, slide swap
@@ -52,7 +59,44 @@ export default function MobileStacked({ items, intervalMs = 4000, className = ''
 
   return (
     <div ref={containerRef} className={`relative ${className}`}>
-      <div className="relative min-h-[240px] overflow-hidden">
+      <div
+        className="relative min-h-[240px] overflow-hidden"
+        onTouchStart={(e) => {
+          if (!isMobile) return;
+          const t = e.touches[0];
+          touchStartX.current = t.clientX;
+          touchStartY.current = t.clientY;
+          if (timerRef.current) {
+            window.clearInterval(timerRef.current);
+            timerRef.current = null;
+          }
+        }}
+        onTouchEnd={(e) => {
+          if (!isMobile) return;
+          const startX = touchStartX.current;
+          const startY = touchStartY.current;
+          touchStartX.current = null;
+          touchStartY.current = null;
+          if (startX == null || startY == null) return;
+          const t = e.changedTouches[0];
+          const dx = t.clientX - startX;
+          const dy = t.clientY - startY;
+          if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
+            if (dx < 0) {
+              setActiveIndex((prev) => (prev + 1) % items.length);
+            } else {
+              setActiveIndex((prev) => (prev - 1 + items.length) % items.length);
+            }
+          }
+          // restart autoplay
+          if (isInView && items.length > 1) {
+            if (timerRef.current) window.clearInterval(timerRef.current);
+            timerRef.current = window.setInterval(() => {
+              setActiveIndex((prev) => (prev + 1) % items.length);
+            }, intervalMs);
+          }
+        }}
+      >
         {items.map((node, i) => {
           const total = items.length;
           if (total === 0) return null;
@@ -81,6 +125,26 @@ export default function MobileStacked({ items, intervalMs = 4000, className = ''
             </motion.div>
           );
         })}
+
+        {/* Arrows to indicate more; also tap targets to move */}
+        {items.length > 1 && (
+          <>
+            <button
+              aria-label="Previous"
+              onClick={() => setActiveIndex((prev) => (prev - 1 + items.length) % items.length)}
+              className="absolute left-2 top-1/2 -translate-y-1/2 z-40 w-8 h-8 rounded-full bg-white/10 text-white/80 backdrop-blur border border-white/15 active:scale-95"
+            >
+              ‹
+            </button>
+            <button
+              aria-label="Next"
+              onClick={() => setActiveIndex((prev) => (prev + 1) % items.length)}
+              className="absolute right-2 top-1/2 -translate-y-1/2 z-40 w-8 h-8 rounded-full bg-white/10 text-white/80 backdrop-blur border border-white/15 active:scale-95"
+            >
+              ›
+            </button>
+          </>
+        )}
       </div>
     </div>
   );
