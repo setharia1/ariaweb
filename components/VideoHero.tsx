@@ -79,7 +79,7 @@ export default function VideoHero({ className = '', src = '/media/aria-hero.mp4'
 
   return (
     <section className={clsx('py-12 md:py-16', className)} aria-label="Hero video">
-      <div className="relative mx-auto w-full max-w-6xl px-0 md:px-6 xl:px-8">
+      <div className="relative mx-auto w-full max-w-7xl px-0 md:px-4 xl:px-6">
         {/* Neon gradient outline wrapper */}
         <div className="relative p-[4px] md:p-[5px] rounded-2xl md:rounded-3xl bg-gradient-to-r from-cyan-400 via-sky-400 to-blue-500 ring-1 ring-cyan-300/50 shadow-[0_0_60px_rgba(56,189,248,0.45)]">
           {/* Outer glow */}
