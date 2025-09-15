@@ -79,8 +79,12 @@ export default function VideoHero({ className = '', src = '/media/aria-hero.mp4'
 
   return (
     <section className={clsx('py-12 md:py-16', className)} aria-label="Hero video">
-      <div className="px-0 relative">
-        <div className="relative overflow-hidden bg-black/50 aspect-[16/9] md:rounded-3xl">
+      <div className="relative mx-auto w-full max-w-6xl px-0 md:px-6 xl:px-8">
+        {/* Neon gradient outline wrapper */}
+        <div className="relative p-[4px] md:p-[5px] rounded-2xl md:rounded-3xl bg-gradient-to-r from-cyan-400 via-sky-400 to-blue-500 ring-1 ring-cyan-300/50 shadow-[0_0_60px_rgba(56,189,248,0.45)]">
+          {/* Outer glow */}
+          <div className="pointer-events-none absolute -inset-1 rounded-[22px] md:rounded-[26px] bg-cyan-400/25 blur-xl" />
+          <div className="relative z-10 overflow-hidden bg-black/50 aspect-[16/9] rounded-[14px] md:rounded-3xl">
           {/* Masked layer that fades top/bottom edges of the video content */}
           <div
             className="absolute inset-0"
@@ -136,10 +140,11 @@ export default function VideoHero({ className = '', src = '/media/aria-hero.mp4'
 
           {/* Subtle vignette and edge sheen to match site aesthetic */}
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/20" />
-          <div className="pointer-events-none absolute inset-0 ring-1 ring-white/10 md:rounded-3xl" />
+          <div className="pointer-events-none absolute inset-0 ring-1 ring-white/10 rounded-[14px] md:rounded-3xl" />
+          </div>
         </div>
         {/* Soft bottom glow bleed to blend into next section */}
-        <div className="pointer-events-none absolute inset-x-0 -bottom-8 md:-bottom-10 h-20 md:h-28 bg-gradient-to-b from-black/40 via-black/20 to-transparent blur-md" />
+        <div className="pointer-events-none absolute inset-x-6 md:inset-x-10 -bottom-8 md:-bottom-10 h-20 md:h-28 bg-gradient-to-b from-cyan-400/20 via-black/20 to-transparent blur-lg" />
       </div>
     </section>
   );
