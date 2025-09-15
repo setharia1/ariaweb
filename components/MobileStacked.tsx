@@ -18,7 +18,7 @@ function getIsMobileEnabled(): boolean {
   return coarse && narrow && !reduce;
 }
 
-export default function MobileStacked({ items, intervalMs = 1600, className = '', desktopClassName = '' }: MobileStackedProps) {
+export default function MobileStacked({ items, intervalMs = 2600, className = '', desktopClassName = '' }: MobileStackedProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { amount: 0.4, once: false });
   const [isMobile, setIsMobile] = useState<boolean>(getIsMobileEnabled);
@@ -38,7 +38,7 @@ export default function MobileStacked({ items, intervalMs = 1600, className = ''
     return () => clearInterval(id);
   }, [isMobile, isInView, items.length, intervalMs]);
 
-  const nextIndex = (activeIndex + 1) % Math.max(items.length, 1);
+  // Option A: single active card, no background preview, autoplay fade-and-swipe
 
   if (!isMobile) {
     return (
@@ -53,13 +53,6 @@ export default function MobileStacked({ items, intervalMs = 1600, className = ''
   return (
     <div ref={containerRef} className={`relative ${className}`}>
       <div className="relative min-h-[240px]">
-        {/* Subtle preview of next card behind, very low opacity and blurred */}
-        {items.length > 1 && (
-          <div className="absolute inset-0 z-10 pointer-events-none opacity-10 blur-[1px] scale-[0.98]">
-            {items[nextIndex]}
-          </div>
-        )}
-
         <AnimatePresence mode="wait">
           <motion.div
             key={activeIndex}
@@ -67,7 +60,7 @@ export default function MobileStacked({ items, intervalMs = 1600, className = ''
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -60 }}
             transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-            className="relative z-20"
+            className="relative"
           >
             {items[activeIndex]}
           </motion.div>
