@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useInView } from 'framer-motion';
+import { AnimatePresence, motion, useInView } from 'framer-motion';
 import { ReactNode, useEffect, useMemo, useRef, useState } from 'react';
 
 interface MobileStackedProps {
@@ -38,15 +38,7 @@ export default function MobileStacked({ items, intervalMs = 1600, className = ''
     return () => clearInterval(id);
   }, [isMobile, isInView, items.length, intervalMs]);
 
-  const visibleItems: Array<{ key: number; node: ReactNode }> = useMemo(() => {
-    if (!isMobile) return [] as Array<{ key: number; node: ReactNode }>;
-    const ordered: Array<{ key: number; node: ReactNode } > = [];
-    for (let i = 0; i < Math.min(items.length, 3); i++) {
-      const idx = (activeIndex + i) % items.length;
-      ordered.push({ key: idx, node: items[idx] });
-    }
-    return ordered;
-  }, [isMobile, items, activeIndex]);
+  const nextIndex = (activeIndex + 1) % Math.max(items.length, 1);
 
   if (!isMobile) {
     return (
@@ -60,28 +52,26 @@ export default function MobileStacked({ items, intervalMs = 1600, className = ''
 
   return (
     <div ref={containerRef} className={`relative ${className}`}>
-      <div className="relative min-h-[220px]">
-        {visibleItems.map((entry, layer) => {
-          const isActive = layer === 0;
-          const zIndex = 30 - layer;
-          const translateY = layer * 8;
-          const scale = 1 - layer * 0.02;
-          return (
-            <motion.div
-              key={entry.key}
-              initial={{ opacity: isActive ? 1 : 0.9, x: isActive ? 0 : 0, y: translateY, scale }}
-              animate={{ opacity: isActive ? 1 : 0.9, x: 0, y: translateY, scale }}
-              exit={{ opacity: 0, x: -120, rotate: -2 }}
-              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="absolute inset-0"
-              style={{ zIndex }}
-            >
-              <div className="h-full">
-                {entry.node}
-              </div>
-            </motion.div>
-          );
-        })}
+      <div className="relative min-h-[240px]">
+        {/* Subtle preview of next card behind, very low opacity and blurred */}
+        {items.length > 1 && (
+          <div className="absolute inset-0 z-10 pointer-events-none opacity-10 blur-[1px] scale-[0.98]">
+            {items[nextIndex]}
+          </div>
+        )}
+
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeIndex}
+            initial={{ opacity: 0, x: 40 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -60 }}
+            transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+            className="relative z-20"
+          >
+            {items[activeIndex]}
+          </motion.div>
+        </AnimatePresence>
       </div>
     </div>
   );
