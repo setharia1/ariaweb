@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Inter:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400..900&family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Inter:wght@100..900&display=swap');
 
 :root {
   color-scheme: light dark;
@@ -31,17 +31,16 @@ html, body {
 
 /* Iron/AI layered background */
 body {
-  background: 
-    /* Aurora gradient - drifts slowly */
-    radial-gradient(ellipse 1200px 800px at 30% 20%, rgba(51, 225, 237, 0.08) 0%, transparent 50%),
-    radial-gradient(ellipse 1000px 600px at 70% 80%, rgba(106, 200, 255, 0.06) 0%, transparent 50%),
-    /* Base gradient */
-    linear-gradient(135deg, #07131F 0%, #0C1E2F 50%, #07131F 100%),
-    /* Metal noise texture */
+  /* Luxury base: deep navy-black gradient with subtle burgundy/purple glows */
+  background:
+    radial-gradient(ellipse 1200px 800px at 30% 20%, rgba(201, 166, 53, var(--aurora-opacity, 0.08)) 0%, transparent 50%),
+    radial-gradient(ellipse 1000px 600px at 70% 80%, rgba(75, 0, 130, var(--aurora-opacity, 0.06)) 0%, transparent 50%),
+    linear-gradient(135deg, #000000 0%, #0A1A3C 50%, #000000 100%),
     url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E");
   background-attachment: fixed;
   background-size: 100% 100%, 100% 100%, 100% 100%, 400px 400px;
   animation: aurora-drift 20s ease-in-out infinite;
+  color: #F5F2E9;
 }
 
 @keyframes aurora-drift {
@@ -275,15 +274,18 @@ body {
   }
   
   .surface {
-    @apply bg-stone-1/80 dark:bg-white/5;
+    @apply bg-stone-1/80 dark:bg-navy/40;
+    background-image: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
   }
   
   .border-subtle {
-    @apply ring-1 ring-stone-2/60 dark:ring-white/10;
+    @apply ring-1 ring-stone-2/60 dark:ring-gold/20;
   }
   
   .card {
     @apply surface border-subtle rounded-2xl shadow-lg/5;
+    box-shadow: 0 12px 24px rgba(0,0,0,0.25);
+    border-image: linear-gradient(135deg, rgba(201,166,53,0.35), rgba(123,17,19,0.15)) 1;
   }
   
   .t-strong {
@@ -295,7 +297,7 @@ body {
   }
   
   .divide-subtle {
-    @apply divide-stone-2/50 dark:divide-white/10;
+    @apply divide-stone-2/50 dark:divide-gold/20;
   }
   
   .border-accent {
@@ -304,8 +306,8 @@ body {
   
   .tron-grid {
     background-image:
-      linear-gradient(rgba(51, 225, 237, var(--tron-opacity, 0.03)) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(51, 225, 237, var(--tron-opacity, 0.03)) 1px, transparent 1px);
+      linear-gradient(rgba(201, 166, 53, var(--tron-opacity, 0.025)) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201, 166, 53, var(--tron-opacity, 0.025)) 1px, transparent 1px);
     background-size: 20px 20px;
   }
 
@@ -317,12 +319,12 @@ body {
   }
 
   .sheen {
-    background: linear-gradient(135deg, transparent 0%, rgba(51, 225, 237, 0.03) 50%, transparent 100%);
+    background: linear-gradient(135deg, transparent 0%, rgba(201, 166, 53, 0.06) 50%, transparent 100%);
   }
 
   .iron-surface {
     background: linear-gradient(135deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.01) 50%, transparent 100%);
-    border: 1px solid rgba(51, 225, 237, 0.1);
+    border: 1px solid rgba(201, 166, 53, 0.25);
   }
 
   .glint {
@@ -337,7 +339,7 @@ body {
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(51, 225, 237, 0.1), transparent);
+    background: linear-gradient(90deg, transparent, rgba(201, 166, 53, 0.12), transparent);
     animation: glint-sweep 3s ease-in-out infinite;
   }
 
@@ -401,7 +403,10 @@ body {
 
 @layer components {
   .btn-primary {
-    @apply inline-flex items-center px-5 py-3 rounded-xl font-medium bg-accent-a text-black hover:brightness-110 transition-all duration-200;
+    @apply inline-flex items-center px-5 py-3 rounded-xl font-semibold text-white transition-all duration-200;
+    background: linear-gradient(180deg, rgba(0,0,0,0.9), rgba(10,26,60,0.9));
+    border: 1px solid rgba(201,166,53,0.5);
+    box-shadow: 0 0 0 0 rgba(201,166,53,0.0);
     position: relative;
     overflow: hidden;
   }
@@ -409,25 +414,28 @@ body {
   .btn-primary::before {
     content: '';
     position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    transition: width 0.3s ease, height 0.3s ease;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(120% 120% at 0% 0%, rgba(201,166,53,0.18), transparent 50%);
+    opacity: 0.0;
+    transition: opacity 0.25s ease;
   }
 
   .btn-primary:hover::before {
-    width: 200px;
-    height: 200px;
+    opacity: 1;
+  }
+
+  .btn-primary:hover {
+    box-shadow: 0 8px 24px rgba(201,166,53,0.15), 0 0 0 1px rgba(201,166,53,0.35) inset;
   }
 
   .btn-ghost {
     @apply inline-flex items-center px-5 py-3 rounded-xl font-medium surface hover:shadow-lg/10 transition-all duration-200;
     position: relative;
     overflow: hidden;
+    border: 1px solid rgba(201,166,53,0.25);
   }
 
   .btn-ghost::before {
@@ -437,7 +445,7 @@ body {
     left: 0;
     width: 0;
     height: 100%;
-    background: rgba(51, 225, 237, 0.1);
+    background: rgba(201, 166, 53, 0.08);
     transition: width 0.3s ease;
   }
 
@@ -449,7 +457,7 @@ body {
     content: '';
     position: absolute;
     inset: -2px;
-    background: linear-gradient(45deg, transparent, rgba(51, 225, 237, 0.1), transparent);
+    background: linear-gradient(45deg, transparent, rgba(201, 166, 53, 0.12), transparent);
     border-radius: inherit;
     z-index: -1;
     opacity: 0;
@@ -503,7 +511,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(51, 225, 237, 0.08) 0%, transparent 50%);
+    background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(201, 166, 53, 0.08) 0%, transparent 50%);
     opacity: 0;
     transition: opacity 0.2s ease;
     pointer-events: none;
@@ -512,9 +520,9 @@ body {
   .card-hover:hover {
     transform: translateY(-4px);
     box-shadow: 
-      0 12px 24px rgba(0, 0, 0, 0.12),
-      0 0 0 1px rgba(51, 225, 237, 0.2),
-      inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      0 12px 24px rgba(0, 0, 0, 0.25),
+      0 0 0 1px rgba(201, 166, 53, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.04);
   }
 
   .card-hover:hover::before {
@@ -531,7 +539,7 @@ body {
     position: fixed;
     width: 20px;
     height: 20px;
-    background: radial-gradient(circle, rgba(51, 225, 237, 0.1) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(201, 166, 53, 0.1) 0%, transparent 70%);
     border-radius: 50%;
     pointer-events: none;
     z-index: 9999;
@@ -560,7 +568,7 @@ body {
     position: fixed;
     width: 4px;
     height: 4px;
-    background: radial-gradient(circle, rgba(51, 225, 237, 0.8) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(201, 166, 53, 0.8) 0%, transparent 70%);
     border-radius: 50%;
     pointer-events: none;
     z-index: 1;
@@ -569,7 +577,7 @@ body {
 
   .floating-orb:nth-child(2) {
     animation-delay: -3s;
-    background: radial-gradient(circle, rgba(106, 200, 255, 0.6) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(75, 0, 130, 0.6) 0%, transparent 70%);
   }
 
   @keyframes float {
@@ -621,6 +629,21 @@ body {
 
 /* Focus styles for accessibility */
 @layer base {
+  html {
+    @apply font-sans;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif;
+    letter-spacing: 0.02em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  h1 { @apply font-semibold; letter-spacing: 0.025em; }
+  h2 { @apply font-semibold; letter-spacing: 0.02em; }
+  h3 { @apply font-medium; letter-spacing: 0.015em; }
+  h4 { @apply font-medium; letter-spacing: 0.01em; }
+  p { @apply leading-relaxed; }
+  strong { @apply text-text-1 dark:text-text-1-dark; letter-spacing: 0.01em; }
   *:focus-visible {
     @apply outline-none ring-2 ring-accent-a ring-offset-2 ring-offset-ink;
   }

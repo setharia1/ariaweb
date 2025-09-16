@@ -12,21 +12,30 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        ink: '#07131F',
-        navy: '#0C1E2F',
+        // Core brand bases (remapped to luxury palette)
+        ink: '#000000', // Luxe black for dark surfaces
+        navy: '#0A1A3C', // Midnight navy for headers/sections
         'stone-1': '#F7F9FC',
         'stone-2': '#DBE2EA',
         'text-1': {
           DEFAULT: '#0A0F14',
-          dark: '#EAF2FF'
+          dark: '#F5F2E9' // Warm ivory for high-contrast on dark
         },
         'text-2': {
           DEFAULT: '#475569',
-          dark: '#A7B3C2'
+          dark: '#B8B2A6' // Muted warm gray for dark
         },
-        'accent-a': '#33E1ED',
-        'accent-b': '#6AC8FF',
-        'accent-c': '#FF4D9A',
+        // Luxury accents
+        'accent-a': '#C9A635', // Rich metallic gold
+        'accent-b': '#7B1113', // Burgundy / oxblood
+        'accent-c': '#4B0082', // Royal purple
+        // Additional luxury tones
+        forest: '#013220',
+        burgundy: '#7B1113',
+        gold: '#C9A635',
+        royal: '#4B0082',
+        charcoal: '#2E2E2E',
+        'luxe-black': '#000000',
       },
       boxShadow: {
         'lg/5': '0 10px 15px -3px rgb(0 0 0 / 0.05)',
@@ -34,7 +43,7 @@ const config: Config = {
       },
       fontFamily: {
         sans: ['Inter', 'ui-sans-serif', 'system-ui'],
-        serif: ['Fraunces', 'Newsreader', 'ui-serif'],
+        serif: ['"Playfair Display"', 'Fraunces', 'Newsreader', 'ui-serif'],
       },
     },
   },
