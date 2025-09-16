@@ -45,12 +45,13 @@ export default function LangtonsAnt({ intensity = 0.3 }: LangtonsAntProps) {
   const scrollYRef = useRef(0);
   const lastScrollYRef = useRef(0);
 
-  // Tron-inspired color palette
+  // Luxury color palette (emerald, navy, burgundy, royal purple, gold)
   const colorPalette = [
-    { h: 185, s: 80, l: 55 }, // Teal
-    { h: 198, s: 85, l: 58 }, // Cyan
-    { h: 230, s: 70, l: 55 }, // Indigo
-    { h: 300, s: 65, l: 60 }, // Magenta
+    { h: 155, s: 45, l: 22 }, // Emerald (#013220)
+    { h: 220, s: 60, l: 15 }, // Navy (#0A1A3C)
+    { h: 355, s: 65, l: 28 }, // Burgundy (#7B1113)
+    { h: 273, s: 70, l: 28 }, // Royal Purple (#4B0082)
+    { h: 46,  s: 55, l: 46 }, // Gold (#C9A635)
   ];
 
   // Resize canvas function with ResizeObserver
@@ -217,8 +218,8 @@ export default function LangtonsAnt({ intensity = 0.3 }: LangtonsAntProps) {
     // Clear canvas
     ctx.clearRect(0, 0, width, height);
 
-    // Draw subtle grid
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.03)';
+    // Draw subtle grid (charcoal)
+    ctx.strokeStyle = 'rgba(46, 46, 46, 0.2)';
     ctx.lineWidth = 0.5;
     const gridSize = 50;
     

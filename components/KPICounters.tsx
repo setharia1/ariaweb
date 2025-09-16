@@ -99,7 +99,7 @@ export default function KPICounters() {
   const renderCard = (kpi: any, index: number, useMotion: boolean) => {
     const content = (
       <div className="card p-6 card-hover">
-        <div className="text-3xl md:text-4xl font-bold text-accent-a mb-2">
+        <div className="text-3xl md:text-4xl font-bold lux-number mb-2">
           <KPICounter 
             value={kpi.value}
             prefix={kpi.prefix as any}
@@ -108,7 +108,7 @@ export default function KPICounters() {
             duration={2000 + index * 200}
           />
         </div>
-        <h3 className="font-serif text-lg font-semibold t-strong mb-2">
+        <h3 className="font-serif text-lg font-semibold t-strong mb-2 lux-underline">
           {kpi.label}
         </h3>
         <p className="text-sm t-muted">
@@ -138,7 +138,7 @@ export default function KPICounters() {
   };
 
   return (
-    <section className="py-20 bg-gradient-to-b from-transparent to-navy/20">
+    <section className="py-10 md:py-14 bg-gradient-to-b from-transparent to-navy/20">
       <div className="mx-auto max-w-7xl px-6 xl:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

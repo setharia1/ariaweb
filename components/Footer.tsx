@@ -1,58 +1,158 @@
 'use client';
 
-import { Zap, ZapOff } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useMemo, useState } from 'react';
+import Link from 'next/link';
+import { Linkedin, Twitter, ArrowUp } from 'lucide-react';
 
-export default function Footer({ className }: { className?: string }) {
-  const [pulsePosition, setPulsePosition] = useState(0);
+interface FooterProps {
+  className?: string;
+  showNewsletter?: boolean;
+  newsletterEnabled?: boolean;
+  contactEmail?: string;
+  location?: string;
+}
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setPulsePosition(prev => (prev + 1) % 100);
-    }, 150); // 15s total duration (150ms * 100 = 15s)
+export default function Footer({
+  className,
+  showNewsletter = true,
+  newsletterEnabled = false,
+  contactEmail = 'invest@aria.capital',
+  location = 'Lehi, UT',
+}: FooterProps) {
+  const year = useMemo(() => new Date().getFullYear(), []);
+  const [email, setEmail] = useState('');
+  const [emailTouched, setEmailTouched] = useState(false);
 
-    return () => clearInterval(interval);
-  }, []);
+  const isEmailValid = useMemo(() => {
+    if (!email) return false;
+    return /[^@\s]+@[^@\s]+\.[^@\s]+/.test(email);
+  }, [email]);
+
+  const showEmailError = emailTouched && !isEmailValid;
+
+  const handleSubscribe = (e: React.FormEvent) => {
+    e.preventDefault();
+    setEmailTouched(true);
+    // Not wired to backend; keep disabled or early return
+    if (!newsletterEnabled || !isEmailValid) return;
+  };
 
   return (
-    <footer className={`relative bg-navy text-white py-8 overflow-hidden ${className}`}>
-      {/* Neural pulse animation */}
-      <div 
-        className="absolute top-0 left-0 h-0.5 bg-gradient-to-r from-transparent via-accent-a to-transparent transition-all duration-150"
-        style={{ 
-          width: '100%',
-          transform: `translateX(${pulsePosition - 100}%)`,
-          opacity: pulsePosition > 5 && pulsePosition < 95 ? 1 : 0
-        }}
-      />
-      <div className="max-w-7xl mx-auto px-6 xl:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Company Info */}
-          <div className="md:col-span-2">
-            <h3 className="font-serif text-lg font-semibold mb-4">Aria</h3>
-            <p className="text-white/60 text-sm max-w-md">
-              Building the future through thoughtful investment across real assets, 
-              private equity, venture, and public markets.
-            </p>
+    <footer role="contentinfo" aria-label="Footer" className={`relative z-10 overflow-hidden ${className ?? ''}`}>
+      {/* Top gold rule */}
+      <div className="w-full h-[2px] bg-accent-a/50 shadow-[0_0_12px_rgba(201,166,53,0.3)]" />
+
+      {/* Background */}
+      <div className="relative bg-gradient-to-b from-navy to-black text-[#E6E9EF]">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_60%,rgba(0,0,0,0.45))]" />
+
+        <div className="relative max-w-7xl mx-auto px-6 xl:px-8 py-12 md:py-14">
+          {/* Top grid: Brand, Links, Contact, Newsletter */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
+            {/* Brand lockup */}
+            <section aria-label="Brand" className="space-y-3">
+              <Link href="/" className="inline-block font-serif text-2xl font-semibold tracking-[0.06em] bg-gradient-to-r from-gold via-royal to-gold bg-clip-text text-transparent">
+                ARIA
+              </Link>
+              <p className="text-[#BFC6D1] text-sm leading-snug max-w-sm">
+                Operator-built investment platform partnering with builders to create durable value.
+              </p>
+            </section>
+
+            {/* Quick links */}
+            <nav aria-label="Quick links" className="grid grid-cols-2 gap-6">
+              <ul className="space-y-2 text-sm">
+                <li><Link className="hover:text-accent-a transition-colors" href="/">Home</Link></li>
+                <li><Link className="hover:text-accent-a transition-colors" href="/about">About</Link></li>
+                <li><Link className="hover:text-accent-a transition-colors" href="/investment-approach">Investment Approach</Link></li>
+                <li><Link className="hover:text-accent-a transition-colors" href="/portfolio">Portfolio</Link></li>
+              </ul>
+              <ul className="space-y-2 text-sm">
+                <li><Link className="hover:text-accent-a transition-colors" href="/stewardship">Stewardship</Link></li>
+                <li><Link className="hover:text-accent-a transition-colors" href="/insights">Insights</Link></li>
+                <li><Link className="hover:text-accent-a transition-colors" href="/team">Team</Link></li>
+                <li><Link className="hover:text-accent-a transition-colors" href="/contact">Contact</Link></li>
+              </ul>
+            </nav>
+
+            {/* Contact */}
+            <section aria-label="Contact" className="space-y-3">
+              <h3 className="font-serif text-base tracking-[0.05em] text-[#E6E9EF]">Contact</h3>
+              <div className="text-sm text-[#BFC6D1] space-y-1">
+                <p>
+                  <a className="hover:text-accent-a transition-colors" href={`mailto:${contactEmail}`}>{contactEmail}</a>
+                </p>
+                <p>{location}</p>
+                <p><a className="hover:text-accent-a transition-colors" href="#">Office</a></p>
+              </div>
+            </section>
+
+            {/* Newsletter */}
+            {showNewsletter && (
+              <section aria-label="Newsletter" className="space-y-3">
+                <h3 className="font-serif text-base tracking-[0.05em] text-[#E6E9EF]">Newsletter</h3>
+                <form className="space-y-2" onSubmit={handleSubscribe} noValidate>
+                  <label htmlFor="newsletter-email" className="sr-only">Email address</label>
+                  <input
+                    id="newsletter-email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    onBlur={() => setEmailTouched(true)}
+                    aria-label="Email address"
+                    aria-invalid={showEmailError}
+                    aria-describedby={showEmailError ? 'newsletter-error' : undefined}
+                    placeholder="you@example.com"
+                    className="w-full rounded-md bg-black/30 border border-accent-a/30 px-3 py-2 text-sm text-[#E6E9EF] placeholder:text-[#BFC6D1] focus:outline-none focus:ring-2 focus:ring-accent-a"
+                  />
+                  {showEmailError && (
+                    <p id="newsletter-error" className="text-xs text-accent-a/90">Please enter a valid email.</p>
+                  )}
+                  <button
+                    type="submit"
+                    disabled={!newsletterEnabled}
+                    title={!newsletterEnabled ? 'Coming soon' : undefined}
+                    className="btn-primary w-full justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+                    aria-disabled={!newsletterEnabled}
+                  >
+                    Subscribe
+                  </button>
+                  {!newsletterEnabled && (
+                    <p className="text-xs text-[#BFC6D1]">Subscriptions not enabled yet.</p>
+                  )}
+                </form>
+              </section>
+            )}
           </div>
 
-          {/* Legal */}
-          <div>
-            <h4 className="font-medium mb-4">Legal</h4>
-            <ul className="space-y-2 text-sm">
-              <li><a href="/legal" className="text-white/60 hover:text-accent-a transition-colors">Legal</a></li>
-              <li><a href="/privacy" className="text-white/60 hover:text-accent-a transition-colors">Privacy</a></li>
-            </ul>
-          </div>
-        </div>
+          {/* Divider */}
+          <div className="mt-10 border-t border-accent-a/20" />
 
-        <div className="border-t border-white/10 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-sm text-white/60">
-            © {new Date().getFullYear()} Aria. All rights reserved.
-          </p>
-          <div className="flex items-center gap-2 mt-4 md:mt-0">
-            <Zap className="w-4 h-4 text-accent-a animate-pulse" />
-            <span className="text-sm text-white/60">Powered by thoughtful investment</span>
+          {/* Bottom row: Legal + Utilities */}
+          <div className="mt-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+            <div className="text-sm text-[#BFC6D1] flex flex-wrap items-center gap-3">
+              <span>© {year} Aria. All rights reserved.</span>
+              <span className="hidden md:inline text-white/20">|</span>
+              <Link href="/privacy" className="hover:text-accent-a transition-colors">Privacy</Link>
+              <span className="hidden md:inline text-white/20">|</span>
+              <Link href="/terms" className="hover:text-accent-a transition-colors">Terms</Link>
+            </div>
+            <div className="flex items-center gap-3">
+              <Link href="https://www.linkedin.com/company/aria" aria-label="LinkedIn" className="p-2 rounded-md hover:text-accent-a focus:outline-none focus:ring-2 focus:ring-accent-a transition-colors">
+                <Linkedin className="w-4 h-4" />
+              </Link>
+              <Link href="#" aria-label="X" className="p-2 rounded-md hover:text-accent-a focus:outline-none focus:ring-2 focus:ring-accent-a transition-colors">
+                <Twitter className="w-4 h-4" />
+              </Link>
+              <button
+                type="button"
+                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                aria-label="Back to top"
+                className="ml-2 inline-flex items-center gap-1 text-sm px-3 py-2 rounded-md border border-accent-a/40 hover:shadow-[0_0_12px_rgba(201,166,53,0.25)] hover:border-accent-a/60 focus:outline-none focus:ring-2 focus:ring-accent-a"
+              >
+                Back to top <ArrowUp className="w-4 h-4" />
+              </button>
+            </div>
           </div>
         </div>
       </div>

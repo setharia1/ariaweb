@@ -35,6 +35,16 @@ export default function RootLayout({
           {/* Background (z-0) */}
           <BackgroundEffects />
           <BackgroundParticles />
+          {/* Spotlight vignette */}
+          <div
+            aria-hidden
+            className="pointer-events-none fixed inset-0 z-[1]"
+            style={{
+              background:
+                'radial-gradient(ellipse at center, rgba(0,0,0,0) 0%, rgba(10,26,60,0.25) 45%, rgba(0,0,0,0.55) 100%)',
+              mixBlendMode: 'multiply'
+            }}
+          />
           <LangtonsAnt />
           <CursorAura />
           

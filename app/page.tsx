@@ -1,22 +1,22 @@
 import Section from '@/components/Section';
 import KPICounters from '@/components/KPICounters';
-import SectionSeparator from '@/components/SectionSeparator';
+// import SectionSeparator from '@/components/SectionSeparator';
 import MobileSwipe from '@/components/MobileSwipe';
-import VideoHero from '@/components/VideoHero';
 import SimpleHeroIntro from '@/components/SimpleHeroIntro';
+import SplashIntro from '@/components/SplashIntro';
 import InvestmentApproachSection from '@/components/InvestmentApproachSection';
 
 export default function HomePage() {
   return (
     <main className="relative z-10">
-      {/* Hero: show video on md+ screens; show original hero on mobile */}
-      <div className="hidden md:block">
-        <VideoHero src="/media/aria%20video.mp4" />
-      </div>
-      <div className="block md:hidden">
-        <SimpleHeroIntro />
-      </div>
-      <SectionSeparator variant="bottom" />
+      {/* Fullscreen splash video once per session */}
+      <SplashIntro
+        src="/media/20250916_1644_ARIA Logo Animation_simple_compose_01k5ab6vf5eez9vjjd0qtnqqac.mp4"
+        mobileSrc="/media/iphone.mp4"
+      />
+      {/* Hero: unified ARIA intro (mobile style) across all screen sizes */}
+      <SimpleHeroIntro />
+      {/* Removed decorative separator in favor of functional footer */}
       
       {/* Investment Pillars Teaser */}
       <Section>
@@ -35,7 +35,7 @@ export default function HomePage() {
       </Section>
 
       {/* Section Separator */}
-      <SectionSeparator variant="both" />
+      {/* Removed decorative separator in favor of functional footer */}
 
       {/* KPI Counters */}
       <MobileSwipe>

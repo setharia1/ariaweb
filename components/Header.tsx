@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import { useTheme } from './ThemeProvider';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 
 export default function Header() {
@@ -11,6 +12,7 @@ export default function Header() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   // Track scroll progress
   useEffect(() => {
@@ -53,27 +55,43 @@ export default function Header() {
       
       <nav className="mx-auto max-w-7xl px-6 xl:px-8 h-16 flex items-center">
         {/* Logo */}
-        <Link href="/" className="font-serif text-xl font-semibold hover:text-accent-a transition-colors">
-          Aria
+        <Link
+          href="/"
+          className="font-serif text-2xl font-semibold tracking-[0.06em] bg-gradient-to-r from-gold via-royal to-gold bg-clip-text text-transparent hover:opacity-90 transition-opacity"
+        >
+          ARIA
         </Link>
 
         {/* Centered Navigation */}
         <div className="hidden md:flex items-center justify-center flex-1 text-sm">
-          {navItems.map((item, index) => (
-            <div key={item.href} className="flex items-center">
-              <Link
-                href={item.href}
-                className="relative hover:text-accent-a transition-all duration-200 group px-3"
-              >
-                {item.label}
-                <span className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-accent-a transition-all duration-200 group-hover:w-full" />
-              </Link>
-              {/* Vertical divider - don't show after the last item */}
-              {index < navItems.length - 1 && (
-                <span className="text-white/30 mx-2">|</span>
-              )}
-            </div>
-          ))}
+          {navItems.map((item, index) => {
+            const isActive = pathname === item.href;
+            return (
+              <div key={item.href} className="flex items-center">
+                <Link
+                  href={item.href}
+                  aria-current={isActive ? 'page' : undefined}
+                  className={clsx(
+                    'relative group rounded-md px-4 py-2 uppercase tracking-[0.08em] transition-all duration-200',
+                    isActive
+                      ? 'text-accent-a ring-1 ring-accent-a/25 bg-accent-a/[0.06] shadow-[0_0_12px_rgba(201,166,53,0.15)]'
+                      : 'text-white/80 hover:text-accent-a'
+                  )}
+                >
+                  {item.label}
+                  <span
+                    className={clsx(
+                      'pointer-events-none absolute -bottom-1 left-1/2 -translate-x-1/2 h-0.5 bg-accent-a transition-all duration-200',
+                      isActive ? 'w-full' : 'w-0 group-hover:w-8'
+                    )}
+                  />
+                </Link>
+                {index < navItems.length - 1 && (
+                  <span className="text-white/20 mx-1">|</span>
+                )}
+              </div>
+            );
+          })}
         </div>
 
         {/* Mobile menu button */}
@@ -89,17 +107,26 @@ export default function Header() {
       {/* Mobile Navigation Menu */}
       {isMobileMenuOpen && (
         <div className="md:hidden bg-navy/95 backdrop-blur-md border-t border-accent-a/20">
-          <div className="px-6 py-4 space-y-3">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="block text-white/80 hover:text-accent-a transition-colors py-2 border-b border-white/10 last:border-b-0"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                {item.label}
-              </Link>
-            ))}
+          <div className="px-6 py-4 space-y-1">
+            {navItems.map((item) => {
+              const isActive = pathname === item.href;
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  aria-current={isActive ? 'page' : undefined}
+                  className={clsx(
+                    'block rounded-md px-3 py-2 uppercase tracking-[0.07em] transition-colors',
+                    isActive
+                      ? 'text-accent-a ring-1 ring-accent-a/25 bg-accent-a/[0.06]'
+                      : 'text-white/85 hover:text-accent-a'
+                  )}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
           </div>
         </div>
       )}

@@ -269,6 +269,33 @@ body {
 
 
 @layer utilities {
+  /* Luxury highlights */
+  .lux-number {
+    @apply text-accent-a; /* gold */
+    text-shadow: 0 0 12px rgba(201,166,53,0.25);
+  }
+
+  .lux-number-emerald {
+    color: #013220;
+    text-shadow: 0 0 10px rgba(1,50,32,0.25);
+  }
+
+  .lux-underline {
+    position: relative;
+  }
+
+  .lux-underline::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -6px;
+    transform: translateX(-50%);
+    width: 64px;
+    height: 2px;
+    border-radius: 9999px;
+    background: linear-gradient(90deg, rgba(75,0,130,0.0), rgba(201,166,53,0.7), rgba(75,0,130,0.0));
+    box-shadow: 0 0 12px rgba(201,166,53,0.25);
+  }
   .bg-app {
     @apply bg-stone-1 text-text-1 dark:bg-ink dark:text-text-1-dark;
   }

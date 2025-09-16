@@ -47,8 +47,8 @@ export default function BackgroundParticles() {
         particlesRef.current.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
-          vx: (Math.random() - 0.5) * 0.3,
-          vy: (Math.random() - 0.5) * 0.3,
+          vx: (Math.random() - 0.5) * 0.12,
+          vy: -(Math.random() * 0.25 + 0.05), // drift upward slowly
           size: Math.random() * 1.5 + 0.5,
           opacity: Math.random() * 0.4 + 0.1,
           life: 0,
@@ -102,16 +102,19 @@ export default function BackgroundParticles() {
         }
 
         // Alternate colors subtly for depth: gold, purple, navy
-        const colorIndex = index % 3;
+        const colorIndex = index % 4;
         if (colorIndex === 0) {
           ctx.fillStyle = "#C9A635";
           ctx.shadowColor = "rgba(201,166,53,0.8)";
         } else if (colorIndex === 1) {
-          ctx.fillStyle = "#4B0082";
+          ctx.fillStyle = "#4B0082"; // royal purple
           ctx.shadowColor = "rgba(75,0,130,0.6)";
+        } else if (colorIndex === 2) {
+          ctx.fillStyle = "#013220"; // emerald
+          ctx.shadowColor = "rgba(1,50,32,0.6)";
         } else {
-          ctx.fillStyle = "#0A1A3C";
-          ctx.shadowColor = "rgba(10,26,60,0.6)";
+          ctx.fillStyle = "#0A1A3C"; // navy
+          ctx.shadowColor = "rgba(10,26,60,0.5)";
         }
 
         // Draw particle with optimized rendering

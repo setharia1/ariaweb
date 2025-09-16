@@ -138,12 +138,20 @@ export default function BackgroundEffects() {
       
       const gradient1 = ctx.createLinearGradient(0, 0, rect.width, 0);
       gradient1.addColorStop(0, "transparent");
-      gradient1.addColorStop(0.3, "rgba(201, 166, 53, 0.12)"); // gold
-      gradient1.addColorStop(0.7, "rgba(75, 0, 130, 0.08)"); // royal purple
+      gradient1.addColorStop(0.25, "rgba(1, 50, 32, 0.10)"); // emerald
+      gradient1.addColorStop(0.5, "rgba(201, 166, 53, 0.12)"); // gold
+      gradient1.addColorStop(0.75, "rgba(10, 26, 60, 0.10)"); // navy
       gradient1.addColorStop(1, "transparent");
-      
+
       ctx.fillStyle = gradient1;
       ctx.fillRect(0, rect.height * 0.2 + Math.sin(time * 0.5) * 20, rect.width, 2);
+      
+      const gradient2 = ctx.createLinearGradient(0, 0, rect.width, 0);
+      gradient2.addColorStop(0, "transparent");
+      gradient2.addColorStop(0.33, "rgba(123, 17, 19, 0.09)"); // burgundy
+      gradient2.addColorStop(0.66, "rgba(75, 0, 130, 0.09)"); // royal purple
+      gradient2.addColorStop(1, "transparent");
+      ctx.fillStyle = gradient2;
       ctx.fillRect(0, rect.height * 0.6 + Math.sin(time * 0.3) * 15, rect.width, 1.5);
       ctx.fillRect(0, rect.height * 0.8 + Math.sin(time * 0.7) * 10, rect.width, 1);
       
@@ -151,10 +159,11 @@ export default function BackgroundEffects() {
 
       // Draw parallax blobs with enhanced blur (luxury palette)
       const blobs = [
-        { x: rect.width * 0.2, y: rect.height * 0.3, size: 90, speed: 0.3, color: "#C9A635" }, // gold
-        { x: rect.width * 0.7, y: rect.height * 0.6, size: 70, speed: 0.2, color: "#4B0082" }, // royal purple
-        { x: rect.width * 0.4, y: rect.height * 0.8, size: 50, speed: 0.35, color: "#7B1113" }, // burgundy
-        { x: rect.width * 0.8, y: rect.height * 0.2, size: 80, speed: 0.25, color: "#013220" }, // forest
+        { x: rect.width * 0.18, y: rect.height * 0.3, size: 90, speed: 0.28, color: "#013220" }, // emerald
+        { x: rect.width * 0.72, y: rect.height * 0.62, size: 80, speed: 0.22, color: "#0A1A3C" }, // navy
+        { x: rect.width * 0.42, y: rect.height * 0.82, size: 60, speed: 0.34, color: "#7B1113" }, // burgundy
+        { x: rect.width * 0.82, y: rect.height * 0.22, size: 85, speed: 0.24, color: "#4B0082" }, // royal purple
+        { x: rect.width * 0.58, y: rect.height * 0.18, size: 70, speed: 0.3, color: "#C9A635" }, // gold
       ];
 
       blobs.forEach((blob, index) => {

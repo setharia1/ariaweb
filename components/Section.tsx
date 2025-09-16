@@ -7,7 +7,7 @@ interface SectionProps {
 
 export default function Section({ children, className = '' }: SectionProps) {
   return (
-    <section className={`py-20 md:py-28 relative ${className}`}>
+    <section className={`py-12 md:py-16 relative ${className}`}>
       {/* Cinematic soft gradient overlay per section (subtle) */}
       <div className="pointer-events-none absolute inset-0 opacity-40 mix-blend-plus-lighter">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-navy/20" />

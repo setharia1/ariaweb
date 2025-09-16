@@ -76,11 +76,11 @@ export default function SimpleHeroIntro() {
       {!showFinalContent && (
         <div className="relative z-10 text-center select-none w-full px-4">
           {/* Use tighter viewport-based sizing on mobile so long words fit comfortably */}
-          <h1 className="font-serif text-[8.5vw] sm:text-[7vw] md:text-[100px] leading-[1.02] tracking-tight text-white/90 transition-all duration-500">
+          <h1 className="font-serif text-[8.5vw] sm:text-[7vw] md:text-[100px] leading-[1.02] tracking-tight transition-all duration-500">
             <span
               className={`inline-block transition-all duration-500 ${
                 phase === 0 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
-              }`}
+              } bg-gradient-to-r from-gold via-royal to-gold bg-clip-text text-transparent`}
             >
               ARIA
             </span>
@@ -88,7 +88,7 @@ export default function SimpleHeroIntro() {
             <span
               className={`inline-block transition-all duration-500 ${
                 phase === 1 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
-              } text-accent-b`}
+              } text-royal`}
             >
               THOUGHTFUL
             </span>
@@ -96,7 +96,7 @@ export default function SimpleHeroIntro() {
             <span
               className={`inline-block transition-all duration-500 ${
                 phase === 2 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
-              } text-accent-a`}
+              } text-gold`}
             >
               INVESTMENT
             </span>
@@ -109,7 +109,7 @@ export default function SimpleHeroIntro() {
         <div className="relative z-10 text-center transition-opacity duration-500 w-full">
           <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl leading-tight tracking-tight text-text-1 dark:text-text-1-dark">
             Building the Future Through{" "}
-            <span className="text-accent-b">Thoughtful</span> Investment
+            <span className="text-royal">Thoughtful</span> Investment
           </h1>
           <p className="mt-5 max-w-2xl mx-auto text-lg text-text-2 dark:text-text-2-dark">
             Strategic investments across real assets, private equity, venture, and public
