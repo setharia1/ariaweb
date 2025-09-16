@@ -108,9 +108,9 @@ export default function BackgroundEffects() {
 
       // Draw subtle grid (reduced visibility, fade in after intro)
       ctx.save();
-      const gridAlpha = introComplete ? 0.06 : 0.02; // 6-8% when visible, 2% during intro
+      const gridAlpha = introComplete ? 0.03 : 0.015; // charcoal grid, very subtle
       ctx.globalAlpha = gridAlpha;
-      ctx.strokeStyle = "#33E1ED";
+      ctx.strokeStyle = "#2E2E2E"; // charcoal gray
       ctx.lineWidth = 1;
 
       const gridSize = 16;
@@ -132,14 +132,14 @@ export default function BackgroundEffects() {
       }
       ctx.restore();
 
-      // Draw aurora waves
+      // Draw aurora waves (recolored to luxury hues)
       ctx.save();
       ctx.globalAlpha = 0.04;
       
       const gradient1 = ctx.createLinearGradient(0, 0, rect.width, 0);
       gradient1.addColorStop(0, "transparent");
-      gradient1.addColorStop(0.3, "rgba(51, 225, 237, 0.1)");
-      gradient1.addColorStop(0.7, "rgba(106, 200, 255, 0.08)");
+      gradient1.addColorStop(0.3, "rgba(201, 166, 53, 0.12)"); // gold
+      gradient1.addColorStop(0.7, "rgba(75, 0, 130, 0.08)"); // royal purple
       gradient1.addColorStop(1, "transparent");
       
       ctx.fillStyle = gradient1;
@@ -149,12 +149,12 @@ export default function BackgroundEffects() {
       
       ctx.restore();
 
-      // Draw parallax blobs with enhanced blur
+      // Draw parallax blobs with enhanced blur (luxury palette)
       const blobs = [
-        { x: rect.width * 0.2, y: rect.height * 0.3, size: 80, speed: 0.3, color: "#33E1ED" },
-        { x: rect.width * 0.7, y: rect.height * 0.6, size: 60, speed: 0.2, color: "#6AC8FF" },
-        { x: rect.width * 0.4, y: rect.height * 0.8, size: 40, speed: 0.4, color: "#33E1ED" },
-        { x: rect.width * 0.8, y: rect.height * 0.2, size: 70, speed: 0.25, color: "#6AC8FF" },
+        { x: rect.width * 0.2, y: rect.height * 0.3, size: 90, speed: 0.3, color: "#C9A635" }, // gold
+        { x: rect.width * 0.7, y: rect.height * 0.6, size: 70, speed: 0.2, color: "#4B0082" }, // royal purple
+        { x: rect.width * 0.4, y: rect.height * 0.8, size: 50, speed: 0.35, color: "#7B1113" }, // burgundy
+        { x: rect.width * 0.8, y: rect.height * 0.2, size: 80, speed: 0.25, color: "#013220" }, // forest
       ];
 
       blobs.forEach((blob, index) => {
@@ -166,7 +166,7 @@ export default function BackgroundEffects() {
         const y = blob.y + Math.cos(time * blob.speed) * 8 + mouseDy * 0.1;
 
         ctx.save();
-        ctx.globalAlpha = 0.15;
+        ctx.globalAlpha = 0.12;
         
         // Create radial gradient for blob
         const gradient = ctx.createRadialGradient(x, y, 0, x, y, blob.size);

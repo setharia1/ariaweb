@@ -34,6 +34,7 @@ export default function RootLayout({
           <DevUtils />
           {/* Background (z-0) */}
           <BackgroundEffects />
+          <BackgroundParticles />
           <LangtonsAnt />
           <CursorAura />
           

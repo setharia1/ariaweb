@@ -72,9 +72,9 @@ export default function BackgroundParticles() {
 
       // Batch draw operations for better performance
       ctx.save();
-      ctx.fillStyle = "#33E1ED";
-      ctx.shadowBlur = 6;
-      ctx.shadowColor = "#33E1ED";
+      ctx.fillStyle = "#C9A635"; // gold particles by default
+      ctx.shadowBlur = 8;
+      ctx.shadowColor = "rgba(201,166,53,0.8)";
 
       particlesRef.current.forEach((particle, index) => {
         // Update position with smoother movement
@@ -99,6 +99,19 @@ export default function BackgroundParticles() {
           currentOpacity = particle.opacity * (lifeRatio / 0.2);
         } else if (lifeRatio > 0.8) {
           currentOpacity = particle.opacity * ((1 - lifeRatio) / 0.2);
+        }
+
+        // Alternate colors subtly for depth: gold, purple, navy
+        const colorIndex = index % 3;
+        if (colorIndex === 0) {
+          ctx.fillStyle = "#C9A635";
+          ctx.shadowColor = "rgba(201,166,53,0.8)";
+        } else if (colorIndex === 1) {
+          ctx.fillStyle = "#4B0082";
+          ctx.shadowColor = "rgba(75,0,130,0.6)";
+        } else {
+          ctx.fillStyle = "#0A1A3C";
+          ctx.shadowColor = "rgba(10,26,60,0.6)";
         }
 
         // Draw particle with optimized rendering
