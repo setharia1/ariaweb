@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Hammer, Handshake, Banknote, LineChart, ArrowRight } from 'lucide-react';
+import Link from 'next/link';
 
 interface PillarCardProps {
   title: string;
@@ -39,9 +40,9 @@ export default function PillarCard({ title, description, icon }: PillarCardProps
       <p className="t-muted text-sm leading-relaxed">
         {description}
       </p>
-      <a href="#our-process" className="mt-3 inline-flex items-center gap-1 text-accent-a text-sm group-hover:underline">
+      <Link href="/investment-approach#our-process" className="mt-3 inline-flex items-center gap-1 text-accent-a text-sm group-hover:underline">
         Learn more <ArrowRight className="w-3.5 h-3.5" />
-      </a>
+      </Link>
     </motion.div>
   );
 }
