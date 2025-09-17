@@ -1,6 +1,6 @@
 import Section from '@/components/Section';
 import Image from 'next/image';
-import { Linkedin, Mail } from 'lucide-react';
+import { Linkedin } from 'lucide-react';
 
 export default function TeamPage() {
   const team = [
@@ -70,7 +70,6 @@ export default function TeamPage() {
               </div>
               <div className="opacity-0 group-hover:opacity-100 transition-opacity mt-4 flex items-center justify-center gap-3">
                 <a href="#" className="tooltip" data-tooltip="LinkedIn" aria-label="LinkedIn"><Linkedin className="w-5 h-5 text-white/80" /></a>
-                <a href="mailto:invest@aria.capital" className="tooltip" data-tooltip="Email" aria-label="Email"><Mail className="w-5 h-5 text-white/80" /></a>
               </div>
             </div>
           ))}
