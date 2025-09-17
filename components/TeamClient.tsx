@@ -100,7 +100,7 @@ export default function TeamClient() {
       </Section>
 
       <Section>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="mx-auto max-w-6xl px-2 sm:px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 place-items-stretch">
           {team.map((member, idx) => {
             const slug = toSlug(member.name);
             return (
@@ -111,14 +111,14 @@ export default function TeamClient() {
                 viewport={{ once: true, margin: '-50px' }}
                 transition={{ duration: 0.4, delay: reduceMotion ? 0 : idx * 0.06, ease: [0.25, 1, 0.5, 1] }}
                 variants={variants}
-                className="matte-card elevate-hover p-6 group relative overflow-hidden h-full focus-within:ring-2 focus-within:ring-accent-a/50"
+                className="matte-card elevate-hover p-6 group relative overflow-hidden h-full focus-within:ring-2 focus-within:ring-accent-a/50 flex flex-col"
                 role="button"
                 tabIndex={0}
                 onClick={() => handleOpen(slug)}
                 onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleOpen(slug); } }}
               >
                 {/* Headshot / initials */}
-                <div className="w-24 h-24 rounded-full mx-auto mb-4 relative">
+                <div className="w-24 h-24 rounded-full mx-auto mb-4 relative flex-shrink-0">
                   <div className="absolute inset-0 rounded-full ring-1 ring-white/15" />
                   <div className="absolute inset-[1px] rounded-full overflow-hidden flex items-center justify-center">
                     {member.photo ? (
@@ -141,16 +141,16 @@ export default function TeamClient() {
 
                 {/* Content */}
                 <h3 className="font-serif text-xl t-strong mb-1 clamp-1">{member.name}</h3>
-                <p className="text-royal text-sm mb-2">{member.title}</p>
-                <p className="text-white/80 text-sm clamp-2">{member.bio}</p>
+                <p className="text-royal text-sm clamp-1">{member.title}</p>
+                <p className="text-white/80 text-sm clamp-2 mt-2">{member.bio}</p>
 
                 {/* Minimal chips: keep at most 1-2 */}
-                <div className="mt-3 flex flex-wrap gap-2 text-xs">
+                <div className="mt-3 min-h-[28px] flex flex-wrap gap-2 text-xs">
                   {member.years && <span className="outline-chip">{member.years}</span>}
                 </div>
 
                 {/* Socials on hover (email kept in modal) */}
-                <div className="opacity-0 group-hover:opacity-100 transition-opacity mt-4 flex items-center justify-center gap-3">
+                <div className="opacity-0 group-hover:opacity-100 transition-opacity mt-auto pt-4 flex items-center justify-center gap-3">
                   {member.linkedin && (
                     <a href={member.linkedin} className="tooltip" data-tooltip="LinkedIn" aria-label={`${member.name} LinkedIn`} onClick={(e) => e.stopPropagation()}>
                       <Linkedin className="w-5 h-5 text-white/80" />

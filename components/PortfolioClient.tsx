@@ -66,21 +66,15 @@ function CaseModal({ item, onClose }: { item: PortfolioItem; onClose: () => void
 export default function PortfolioClient() {
   const router = useRouter();
   const params = useSearchParams();
-  const [type, setType] = useState<string | null>(params.get('type'));
-  const [sector, setSector] = useState<string | null>(params.get('sector'));
-  const [status, setStatus] = useState<string | null>(params.get('status'));
   const [open, setOpen] = useState<string | null>(params.get('case'));
 
-  // Sync URL when filters/dialog change
+  // Sync URL only for case modal deep-linking
   useEffect(() => {
     const q = new URLSearchParams();
-    if (type) q.set('type', type);
-    if (sector) q.set('sector', sector);
-    if (status) q.set('status', status);
     if (open) q.set('case', open);
     const query = q.toString();
     router.replace(`/portfolio${query ? `?${query}` : ''}`);
-  }, [type, sector, status, open, router]);
+  }, [open, router]);
 
   const withPlaceholders: PortfolioItem[] = useMemo(() => {
     const base = PORTFOLIO;
@@ -100,11 +94,7 @@ export default function PortfolioClient() {
     ];
   }, []);
 
-  const filtered = useMemo(() => {
-    return withPlaceholders.filter((c) =>
-      (!type || c.type === type) && (!sector || c.sector === sector) && (!status || c.status === status)
-    );
-  }, [withPlaceholders, type, sector, status]);
+  const items = withPlaceholders;
 
   return (
     <>
@@ -123,28 +113,13 @@ export default function PortfolioClient() {
 
       <Section>
         {/* Stat bar under heading */}
-        <div className="max-w-5xl mx-auto mb-6 text-center text-sm text-white/80">
+        <div className="max-w-5xl mx-auto mb-4 text-center text-sm text-white/80">
           2 active | 1 in pipeline | $100K AUM exposure
         </div>
 
-        {/* Filters */}
-        <div className="max-w-5xl mx-auto mb-6 flex flex-wrap gap-2 items-center">
-          <FilterChip label="Type" value={type} options={["Operator-Built","Partner","Public"]} onChange={setType} />
-          <FilterChip label="Sector" value={sector} options={["Consumer","SaaS","Media","TBD"]} onChange={setSector} />
-          <FilterChip label="Status" value={status} options={["Active","Exited","Coming soon"]} onChange={setStatus} />
-          {(type || sector || status) && (
-            <button onClick={() => { setType(null); setSector(null); setStatus(null); }} className="ml-auto text-sm text-white/80 hover:text-accent-a underline">
-              Reset filters
-            </button>
-          )}
-        </div>
-
         {/* Grid */}
-        <div className="mx-auto max-w-5xl grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
-          {filtered.length === 0 && (
-            <div className="col-span-full text-center text-white/70 py-10">No results. Adjust filters above.</div>
-          )}
-          {filtered.map((c) => (
+        <div className="mx-auto max-w-6xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          {items.map((c) => (
             <article key={c.name} className="matte-card elevate-hover p-6 h-full relative overflow-hidden"
               style={{ perspective: 1000 }}>
               <div className="relative aspect-video rounded-md mb-4 overflow-hidden transition-transform duration-200 bg-black/70 ring-1 ring-white/10">
@@ -153,13 +128,11 @@ export default function PortfolioClient() {
               <h3 className="font-serif text-base md:text-lg t-strong mb-1 clamp-1">{c.name}</h3>
               <p className="text-white/80 text-sm clamp-2">{c.summary}</p>
 
-              {/* Badges */}
-              <div className="mt-3 flex flex-wrap gap-2 text-xs">
-                <div className="hidden sm:flex flex-wrap gap-2">
-                  {c.type && <span className="outline-chip">{c.type}</span>}
-                  {c.sector && <span className="outline-chip">{c.sector}</span>}
-                  {c.status && <span className="outline-chip">{c.status}</span>}
-                </div>
+              {/* Badges (optional, minimal) */}
+              <div className="mt-3 hidden sm:flex flex-wrap gap-2 text-xs">
+                {c.type && <span className="outline-chip">{c.type}</span>}
+                {c.sector && <span className="outline-chip">{c.sector}</span>}
+                {c.status && <span className="outline-chip">{c.status}</span>}
               </div>
 
               {/* Minimal CTA */}
