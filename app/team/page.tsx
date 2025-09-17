@@ -1,6 +1,6 @@
 import Section from '@/components/Section';
 import Image from 'next/image';
-import { Linkedin } from 'lucide-react';
+ 
 
 export default function TeamPage() {
   const team = [
@@ -65,12 +65,7 @@ export default function TeamPage() {
               <p className="t-muted text-sm">
                 {member.bio}
               </p>
-              <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-4">
-                <div className="text-sm text-white/90">{(member as any).specialization}</div>
-              </div>
-              <div className="opacity-0 group-hover:opacity-100 transition-opacity mt-4 flex items-center justify-center gap-3">
-                <a href="#" className="tooltip" data-tooltip="LinkedIn" aria-label="LinkedIn"><Linkedin className="w-5 h-5 text-white/80" /></a>
-              </div>
+              
             </div>
           ))}
         </div>
