@@ -3,6 +3,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import KpiCard from './KpiCard';
+import { Banknote, Building2, Clock3 } from 'lucide-react';
 import { KPI_ITEMS, KPI_FOOTNOTE } from '@/data/kpis';
 import MobileStacked from '@/components/MobileStacked';
 
@@ -97,7 +98,7 @@ export default function KPICounters() {
   };
 
   return (
-    <section className="py-10 md:py-14 bg-gradient-to-b from-transparent to-navy/20" aria-labelledby="impact-heading">
+    <section className="py-10 md:py-14 bg-gradient-to-b from-transparent to-navy/20 glow-on" aria-labelledby="impact-heading">
       <div className="mx-auto max-w-7xl px-6 xl:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -120,7 +121,17 @@ export default function KPICounters() {
           />
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-            {kpiData.map((kpi, index) => renderCard(kpi as any, index, true))}
+            {kpiData.map((kpi, index) => (
+              <div key={(kpi as any).label} className="relative">
+                {/* Thin line icons above each stat */}
+                <div className="absolute -top-5 left-1/2 -translate-x-1/2 text-accent-a/80">
+                  {index === 0 && <Banknote className="w-5 h-5" aria-hidden />}
+                  {index === 1 && <Building2 className="w-5 h-5" aria-hidden />}
+                  {index === 2 && <Clock3 className="w-5 h-5" aria-hidden />}
+                </div>
+                {renderCard(kpi as any, index, true)}
+              </div>
+            ))}
           </div>
         )}
         <p className="text-xs text-white/50 text-center mt-6">{KPI_FOOTNOTE}</p>

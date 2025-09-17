@@ -59,6 +59,12 @@ export default function SimpleHeroIntro() {
       aria-label="Hero"
       className="relative z-10 mx-auto max-w-6xl px-6 pt-24 pb-20 sm:pt-28 lg:pt-32 min-h-[80vh] flex items-center"
     >
+      {/* Floating orbs background layer */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+        <div className="hero-orb purple w-48 h-48 top-10 left-4" />
+        <div className="hero-orb gold w-56 h-56 bottom-6 right-10" />
+        <div className="hero-orb purple w-40 h-40 bottom-16 left-12" />
+      </div>
       {/* Skip Intro Button */}
       {!showFinalContent && (
         <button

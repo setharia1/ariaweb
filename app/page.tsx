@@ -1,4 +1,5 @@
 import Section from '@/components/Section';
+import WaveDivider from '@/components/WaveDivider';
 import KPICounters from '@/components/KPICounters';
 // import SectionSeparator from '@/components/SectionSeparator';
 import MobileSwipe from '@/components/MobileSwipe';
@@ -16,7 +17,8 @@ export default function HomePage() {
       />
       {/* Hero: unified ARIA intro (mobile style) across all screen sizes */}
       <SimpleHeroIntro />
-      {/* Removed decorative separator in favor of functional footer */}
+      {/* Wave Divider into Approach */}
+      <WaveDivider className="mt-2" />
       
       {/* Investment Pillars Teaser */}
       <Section>

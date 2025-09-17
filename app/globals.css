@@ -438,12 +438,13 @@ body {
 
 @layer components {
   .btn-primary {
-    @apply inline-flex items-center px-5 py-3 rounded-xl font-semibold text-white transition-all duration-200;
-    background: linear-gradient(180deg, rgba(0,0,0,0.9), rgba(10,26,60,0.9));
-    border: 1px solid rgba(201,166,53,0.5);
-    box-shadow: 0 0 0 0 rgba(201,166,53,0.0);
+    @apply inline-flex items-center px-5 py-3 rounded-xl font-semibold text-white transition-all duration-200 backdrop-blur-md;
+    background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(10,26,60,0.12));
+    border: 1px solid rgba(201,166,53,0.45);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 6px 18px rgba(201,166,53,0.08);
     position: relative;
     overflow: hidden;
+    transform: translateZ(0);
   }
 
   .btn-primary::before {
@@ -453,7 +454,8 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(120% 120% at 0% 0%, rgba(201,166,53,0.18), transparent 50%);
+    background: radial-gradient(120% 120% at 0% 0%, rgba(201,166,53,0.18), transparent 55%),
+                radial-gradient(120% 120% at 100% 0%, rgba(75,0,130,0.15), transparent 55%);
     opacity: 0.0;
     transition: opacity 0.25s ease;
   }
@@ -463,14 +465,22 @@ body {
   }
 
   .btn-primary:hover {
-    box-shadow: 0 8px 24px rgba(201,166,53,0.15), 0 0 0 1px rgba(201,166,53,0.35) inset;
+    transform: translateY(-1px) scale(1.01);
+    box-shadow: inset 0 0 0 1px rgba(201,166,53,0.45), 0 10px 26px rgba(201,166,53,0.14);
+  }
+
+  .btn-primary:active {
+    transform: translateY(0) scale(0.99);
+    box-shadow: inset 0 0 0 1px rgba(201,166,53,0.55), 0 6px 18px rgba(201,166,53,0.10);
   }
 
   .btn-ghost {
-    @apply inline-flex items-center px-5 py-3 rounded-xl font-medium surface hover:shadow-lg/10 transition-all duration-200;
+    @apply inline-flex items-center px-5 py-3 rounded-xl font-medium transition-all duration-200 backdrop-blur-md;
     position: relative;
     overflow: hidden;
-    border: 1px solid rgba(201,166,53,0.25);
+    background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(10,26,60,0.10));
+    border: 1px solid rgba(201,166,53,0.30);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
   }
 
   .btn-ghost::before {
@@ -480,12 +490,59 @@ body {
     left: 0;
     width: 0;
     height: 100%;
-    background: rgba(201, 166, 53, 0.08);
+    background: radial-gradient(120% 120% at 0% 0%, rgba(201,166,53,0.14), transparent 55%);
     transition: width 0.3s ease;
   }
 
   .btn-ghost:hover::before {
     width: 100%;
+  }
+
+  .btn-ghost:hover {
+    transform: translateY(-1px) scale(1.01);
+    box-shadow: inset 0 0 0 1px rgba(201,166,53,0.35), 0 10px 24px rgba(10,26,60,0.18);
+  }
+
+  .btn-ghost:active {
+    transform: translateY(0) scale(0.99);
+  }
+
+  /* Prefers reduced motion: minimize transforms */
+  @media (prefers-reduced-motion: reduce) {
+    .btn-primary,
+    .btn-ghost {
+      transition: none;
+    }
+    .btn-primary:hover,
+    .btn-ghost:hover {
+      transform: none;
+    }
+  }
+
+  /* Hero floating orbs */
+  .hero-orb {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(24px);
+    opacity: 0.22;
+    mix-blend-mode: screen;
+    animation: orb-drift 24s ease-in-out infinite;
+    will-change: transform, opacity;
+  }
+  .hero-orb.purple { background: radial-gradient(circle at 30% 30%, rgba(75,0,130,0.45), transparent 60%); }
+  .hero-orb.gold { background: radial-gradient(circle at 70% 30%, rgba(201,166,53,0.45), transparent 60%); }
+  .hero-orb:nth-child(1) { animation-delay: 0s; }
+  .hero-orb:nth-child(2) { animation-delay: -8s; }
+  .hero-orb:nth-child(3) { animation-delay: -16s; }
+
+  @keyframes orb-drift {
+    0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+    33% { transform: translate3d(8px, -10px, 0) scale(1.03); }
+    66% { transform: translate3d(-10px, 6px, 0) scale(0.98); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-orb { animation: none; opacity: 0.12; }
   }
   
   .glow-on .glowable::before {

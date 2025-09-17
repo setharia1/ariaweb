@@ -20,7 +20,7 @@ interface KpiCardProps {
 export default function KpiCard({ item, index = 0 }: KpiCardProps) {
   return (
     <Reveal delay={index * 100}>
-      <div className="card p-6 card-hover text-center">
+      <div className="card p-6 card-hover text-center glowable">
         <div className="text-3xl md:text-4xl font-bold lux-number mb-2">
           <Counter
             value={item.value}

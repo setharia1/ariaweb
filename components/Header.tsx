@@ -79,11 +79,8 @@ export default function Header() {
                   )}
                 >
                   {item.label}
-                  <span
-                    className={clsx(
-                      'pointer-events-none absolute -bottom-1 left-1/2 -translate-x-1/2 h-0.5 bg-accent-a transition-all duration-200',
-                      isActive ? 'w-full' : 'w-0 group-hover:w-8'
-                    )}
+                  <span className="pointer-events-none absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-royal via-accent-a to-royal transition-all duration-300 origin-left"
+                    style={{ width: isActive ? '100%' : '0%' }}
                   />
                 </Link>
                 {index < navItems.length - 1 && (
