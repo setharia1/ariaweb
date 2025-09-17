@@ -80,7 +80,7 @@ export default function InvestmentApproachPage() {
             </div>
           </div>
 
-          <div className="card p-6 md:p-8 glowable">
+          <div id="our-process" className="card p-6 md:p-8 glowable">
             <h2 className="font-serif text-2xl t-strong mb-6">
               Investment Philosophy
             </h2>

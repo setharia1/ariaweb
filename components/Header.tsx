@@ -22,7 +22,7 @@ export default function Header() {
       const progress = Math.min(scrollTop / docHeight, 1);
       
       setScrollProgress(progress);
-      setIsScrolled(scrollTop > 10);
+      setIsScrolled(scrollTop > 40);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -53,11 +53,11 @@ export default function Header() {
         style={{ width: `${scrollProgress * 100}%` }}
       />
       
-      <nav className="mx-auto max-w-7xl px-6 xl:px-8 h-16 flex items-center">
+      <nav className={clsx("mx-auto max-w-7xl px-6 xl:px-8 flex items-center gap-3 transition-all duration-300", isScrolled ? 'h-14' : 'h-16')}>
         {/* Logo */}
         <Link
           href="/"
-          className="font-serif text-2xl font-semibold tracking-[0.06em] bg-gradient-to-r from-gold via-royal to-gold bg-clip-text text-transparent hover:opacity-90 transition-opacity"
+          className={clsx("font-serif font-semibold tracking-[0.06em] bg-gradient-to-r from-gold via-royal to-gold bg-clip-text text-transparent hover:opacity-90 transition-all", isScrolled ? 'text-xl' : 'text-2xl')}
         >
           ARIA
         </Link>
@@ -93,6 +93,9 @@ export default function Header() {
             );
           })}
         </div>
+
+        {/* Right side spacer */}
+        <div className="hidden md:flex items-center gap-2" />
 
         {/* Mobile menu button */}
         <button

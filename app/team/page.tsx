@@ -1,4 +1,6 @@
 import Section from '@/components/Section';
+import Image from 'next/image';
+import { Linkedin, Mail } from 'lucide-react';
 
 export default function TeamPage() {
   const team = [
@@ -8,6 +10,7 @@ export default function TeamPage() {
       bio: 'Investing partner at Aria focused on operator‑built products and founder partnerships at pre‑seed and seed. Works hands‑on with teams on product, distribution, and monetization; leads diligence on revenue models and go‑to‑market.',
       // Add a photo for Seth here if/when available, e.g. '/team/seth.jpg'
       photo: undefined as unknown as string | undefined,
+      specialization: 'Product, distribution, monetization',
     },
     {
       name: 'Marcus Liassides',
@@ -15,6 +18,7 @@ export default function TeamPage() {
       bio: 'Founder & operator with 20+ years in digital media and TV. Founded Inuk Networks (Freewire IPTV; acquired by Move Networks), served as CEO of Move Networks (adaptive bitrate streaming), and held leadership roles at Specific Media/Viant, Xumo, and Sorenson Media. Focused on product, distribution, and monetization.',
       // Headshot stored in public/team/IMG_2093.jpg
       photo: '/team/IMG_2093.jpg',
+      specialization: 'Media technology, distribution, operations',
     }
   ];
   return (
@@ -34,15 +38,19 @@ export default function TeamPage() {
       <Section>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {team.map((member) => (
-            <div key={member.name} className="card p-6 glowable text-center">
+            <div key={member.name} className="card p-6 glowable text-center group relative overflow-hidden">
               {member.photo ? (
-                <img
-                  src={member.photo}
-                  alt={`${member.name} headshot`}
-                  className="w-24 h-24 rounded-full object-cover mx-auto mb-4"
-                  loading="eager"
-                  decoding="async"
-                />
+                <div className="w-24 h-24 rounded-full overflow-hidden mx-auto mb-4">
+                  <Image
+                    src={member.photo}
+                    alt={`${member.name} headshot`}
+                    width={96}
+                    height={96}
+                    sizes="96px"
+                    className="object-cover w-full h-full"
+                    priority
+                  />
+                </div>
               ) : (
                 <div className="w-24 h-24 bg-gradient-to-br from-accent-a/20 to-accent-b/20 rounded-full mx-auto mb-4 flex items-center justify-center">
                   <span className="text-2xl">👤</span>
@@ -57,6 +65,13 @@ export default function TeamPage() {
               <p className="t-muted text-sm">
                 {member.bio}
               </p>
+              <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-4">
+                <div className="text-sm text-white/90">{(member as any).specialization}</div>
+              </div>
+              <div className="opacity-0 group-hover:opacity-100 transition-opacity mt-4 flex items-center justify-center gap-3">
+                <a href="#" className="tooltip" data-tooltip="LinkedIn" aria-label="LinkedIn"><Linkedin className="w-5 h-5 text-white/80" /></a>
+                <a href="mailto:invest@aria.capital" className="tooltip" data-tooltip="Email" aria-label="Email"><Mail className="w-5 h-5 text-white/80" /></a>
+              </div>
             </div>
           ))}
         </div>

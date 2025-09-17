@@ -27,10 +27,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ ok: false, error: 'Invalid email.' }, { status: 400 });
     }
 
-    const to = process.env.CONTACT_TO || 'seth@aria.ventures';
-    const subject = `New contact from ${name}`;
-    const plainText = `From: ${name} <${email}>\n\n${message}`;
-    // Resend-only sending (simpler and reliable on Vercel)
+    // Resend-only sending (if configured)
     if (process.env.RESEND_API_KEY) {
       try {
         const res = await fetch('https://api.resend.com/emails', {
@@ -41,10 +38,10 @@ export async function POST(req: NextRequest) {
           },
           body: JSON.stringify({
             from: process.env.RESEND_FROM || 'Aria <onboarding@resend.dev>',
-            to: [to],
+            to: [process.env.CONTACT_TO || 'seth@aria.ventures'],
             reply_to: email,
-            subject,
-            text: plainText,
+            subject: `New contact from ${name}`,
+            text: `From: ${name} <${email}>\n\n${message}`,
           }),
         });
         if (!res.ok) {
@@ -58,8 +55,8 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // No provider configured
-    return NextResponse.json({ ok: false, error: 'Email provider not configured.' }, { status: 500 });
+    // No provider configured: succeed stub
+    return NextResponse.json({ ok: true, note: 'Received (no email provider configured)' });
   } catch (err) {
     console.error(err);
     return NextResponse.json({ ok: false, error: 'Unexpected error.' }, { status: 500 });

@@ -1,6 +1,9 @@
 import Section from '@/components/Section';
 import ScrollReveal from '@/components/ScrollReveal';
 import RequestDraft from '@/components/RequestDraft';
+import Reveal from '@/components/Reveal';
+import { INSIGHTS } from '@/data/insights';
+import { Wrench, DollarSign, BarChart3, Search, Compass, Map } from 'lucide-react';
 
 export default function InsightsPage() {
   return (
@@ -18,6 +21,18 @@ export default function InsightsPage() {
 
       <Section>
         <div className="max-w-6xl mx-auto">
+          {/* Featured newest insight */}
+          <Reveal>
+            <div className="card p-6 md:p-8 glowable mb-8">
+              <div className="text-xs uppercase tracking-wide text-white/60 mb-2">Featured</div>
+              <h3 className="font-serif text-2xl t-strong mb-2">Pricing As A Product</h3>
+              <div className="text-xs text-white/50 mb-4">Playbooks • 4 min read</div>
+              <div className="flex gap-2">
+                <a href="#posts" className="btn-primary">Read summary</a>
+                <RequestDraft postTitle={'Pricing As A Product'} />
+              </div>
+            </div>
+          </Reveal>
           <ScrollReveal>
             <div className="flex flex-wrap items-center gap-2 mb-8">
               <span className="text-xs uppercase tracking-wide text-white/50 mr-2">Categories:</span>
@@ -28,21 +43,23 @@ export default function InsightsPage() {
             </div>
           </ScrollReveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-            {[
-              { icon: '🛠️', title: 'Pricing As A Product', excerpt: 'A practical approach to packaging, ladders, and willingness‑to‑pay tests.' },
-              { icon: '💰', title: 'Monetization Funnels', excerpt: 'Designing upgrade paths that compound ARPU without hurting activation.' },
-              { icon: '📊', title: 'KPI Scorecards That Matter', excerpt: 'A lightweight set of metrics for operators: input, output, and guardrails.' },
-              { icon: '🔍', title: 'Founder–Market Fit', excerpt: 'How we evaluate fit and decide where to be hands‑on vs. hands‑off.' },
-              { icon: '🧭', title: 'Operator Diligence', excerpt: 'Red flags, fast signals, and a 90‑minute working session we run pre‑term sheet.' },
-              { icon: '🗺️', title: 'Quarterly Market Notes', excerpt: 'What changed this quarter: distribution, infra, and consumer behavior shifts.' },
-            ].map((p) => (
-              <ScrollReveal key={p.title}>
+          <div id="posts" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 scroll-mt-24 md:scroll-mt-28">
+            {INSIGHTS.map((post) => (
+              <ScrollReveal key={post.title}>
                 <div className="card p-5 md:p-6 glowable h-full flex flex-col">
-                  <div className="text-3xl mb-3">{p.icon}</div>
-                  <h3 className="font-serif text-base md:text-lg t-strong mb-2">{p.title}</h3>
-                  <p className="t-muted text-sm flex-1">{p.excerpt}</p>
-                  <RequestDraft postTitle={p.title} />
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="px-2 py-1 rounded-full border border-white/10 text-xs text-white/80">{post.category}</span>
+                    <span className="text-xs text-white/60">{post.minutes} min read</span>
+                  </div>
+                  <div className="mb-3 text-white/80">
+                    {post.category === 'Playbooks' && <Wrench className="w-5 h-5" />}
+                    {post.category === 'Case Studies' && <Search className="w-5 h-5" />}
+                    {post.category === 'Market Notes' && <Map className="w-5 h-5" />}
+                    {post.category === 'Resources' && <BarChart3 className="w-5 h-5" />}
+                  </div>
+                  <h3 className="font-serif text-base md:text-lg t-strong mb-2">{post.title}</h3>
+                  <p className="t-muted text-sm flex-1">{post.excerpt}</p>
+                  <RequestDraft postTitle={post.title} />
                 </div>
               </ScrollReveal>
             ))}

@@ -25,6 +25,7 @@ export default function ContactPage() {
               Get in Touch
             </h2>
             <ContactForm />
+            <p className="t-muted text-sm mt-4">Message us to set up a call.</p>
           </div>
 
           <div className="space-y-6">

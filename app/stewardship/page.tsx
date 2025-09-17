@@ -31,35 +31,23 @@ export default function StewardshipPage() {
                 compound.
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div>
-                  <h3 className="font-medium t-strong mb-2">Environmental</h3>
-                  <ul className="list-disc list-inside text-sm t-muted space-y-1">
-                    <li>Prefer efficient cloud and infra; avoid needless spend/energy.</li>
-                    <li>Encourage vendor sustainability where it lowers cost or risk.</li>
-                    <li>Track product-level efficiencies (e.g., automation savings).</li>
-                  </ul>
-                </div>
-                <div>
-                  <h3 className="font-medium t-strong mb-2">Social</h3>
-                  <ul className="list-disc list-inside text-sm t-muted space-y-1">
-                    <li>Data privacy and security as first‑order product requirements.</li>
-                    <li>Fair employment practices and inclusive recruiting.</li>
-                    <li>Customer safety and clear end‑user disclosures.</li>
-                  </ul>
-                </div>
-                <div>
-                  <h3 className="font-medium t-strong mb-2">Governance</h3>
-                  <ul className="list-disc list-inside text-sm t-muted space-y-1">
-                    <li>Board/observer oversight with quarterly KPI reviews.</li>
-                    <li>Simple policies: code of conduct, conflicts, disclosure.</li>
-                    <li>Right‑sized reporting cadence for stage and scale.</li>
-                  </ul>
-                </div>
+                {[
+                  { id: 'esg-environmental', title: 'Environmental', items: ['Prefer efficient cloud and infra; avoid needless spend/energy.', 'Encourage vendor sustainability where it lowers cost or risk.', 'Track product-level efficiencies (e.g., automation savings).'] },
+                  { id: 'esg-social', title: 'Social', items: ['Data privacy and security as first‑order product requirements.', 'Fair employment practices and inclusive recruiting.', 'Customer safety and clear end‑user disclosures.'] },
+                  { id: 'esg-governance', title: 'Governance', items: ['Board/observer oversight with quarterly KPI reviews.', 'Simple policies: code of conduct, conflicts, disclosure.', 'Right‑sized reporting cadence for stage and scale.'] },
+                ].map((col) => (
+                  <div key={col.id} id={col.id} className="card p-4 glowable">
+                    <h3 className="font-medium t-strong mb-2">{col.title}</h3>
+                    <ul className="text-sm t-muted space-y-1">
+                      {col.items.map((it) => (<li key={it}>{it}</li>))}
+                    </ul>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
 
-          <div className="card p-6 md:p-8 glowable">
+          <div id="impact-measurement" className="card p-6 md:p-8 glowable">
             <h2 className="font-serif text-2xl t-strong mb-6">
               Impact Measurement
             </h2>

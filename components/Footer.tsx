@@ -22,6 +22,11 @@ export default function Footer({
   const year = useMemo(() => new Date().getFullYear(), []);
   const [email, setEmail] = useState('');
   const [emailTouched, setEmailTouched] = useState(false);
+  const [contactStatus, setContactStatus] = useState<'idle'|'sending'|'sent'|'error'>('idle');
+  const [contactError, setContactError] = useState('');
+  const [contactName, setContactName] = useState('');
+  const [contactFrom, setContactFrom] = useState('');
+  const [contactMsg, setContactMsg] = useState('');
 
   const isEmailValid = useMemo(() => {
     if (!email) return false;
@@ -37,6 +42,25 @@ export default function Footer({
     if (!newsletterEnabled || !isEmailValid) return;
   };
 
+  const submitCompactContact = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setContactStatus('sending');
+    setContactError('');
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: contactName, email: contactFrom, message: contactMsg }),
+      });
+      if (!res.ok) throw new Error('Failed to send');
+      setContactStatus('sent');
+      setContactName(''); setContactFrom(''); setContactMsg('');
+    } catch (err: any) {
+      setContactStatus('error');
+      setContactError(err?.message || 'Something went wrong');
+    }
+  };
+
   return (
     <footer role="contentinfo" aria-label="Footer" className={`relative z-10 overflow-hidden ${className ?? ''}`}>
       {/* Top gold rule */}
@@ -47,7 +71,7 @@ export default function Footer({
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_60%,rgba(0,0,0,0.45))]" />
 
         <div className="relative max-w-7xl mx-auto px-6 xl:px-8 py-12 md:py-14">
-          {/* Top grid: Brand, Links, Contact, Newsletter */}
+          {/* Top grid: Brand, Links, Contact, Newsletter + Compact Contact */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
             {/* Brand lockup */}
             <section aria-label="Brand" className="space-y-3">
@@ -123,6 +147,28 @@ export default function Footer({
                 </form>
               </section>
             )}
+            {/* Compact contact form */}
+            <section aria-label="Quick message" className="space-y-3">
+              <h3 className="font-serif text-base tracking-[0.05em] text-[#E6E9EF]">Quick message</h3>
+              {contactStatus === 'sent' ? (
+                <div className="text-sm text-emerald-400">Thanks—your message was sent.</div>
+              ) : (
+                <form className="space-y-2" onSubmit={submitCompactContact}>
+                  <div className="grid grid-cols-2 gap-2">
+                    <input value={contactName} onChange={(e)=>setContactName(e.target.value)} required placeholder="Name"
+                      className="w-full rounded-md bg-black/30 border border-accent-a/30 px-3 py-2 text-sm text-[#E6E9EF] placeholder:text-[#BFC6D1] focus:outline-none focus:ring-2 focus:ring-accent-a" />
+                    <input value={contactFrom} onChange={(e)=>setContactFrom(e.target.value)} required type="email" placeholder="Email"
+                      className="w-full rounded-md bg-black/30 border border-accent-a/30 px-3 py-2 text-sm text-[#E6E9EF] placeholder:text-[#BFC6D1] focus:outline-none focus:ring-2 focus:ring-accent-a" />
+                  </div>
+                  <textarea value={contactMsg} onChange={(e)=>setContactMsg(e.target.value)} required placeholder="Message" rows={2}
+                    className="w-full rounded-md bg-black/30 border border-accent-a/30 px-3 py-2 text-sm text-[#E6E9EF] placeholder:text-[#BFC6D1] focus:outline-none focus:ring-2 focus:ring-accent-a" />
+                  {contactStatus === 'error' && <div className="text-xs text-red-400">{contactError}</div>}
+                  <button type="submit" className="btn-primary w-full justify-center" disabled={contactStatus==='sending'}>
+                    {contactStatus==='sending' ? 'Sending…' : 'Send'}
+                  </button>
+                </form>
+              )}
+            </section>
           </div>
 
           {/* Divider */}

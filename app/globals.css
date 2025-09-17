@@ -29,6 +29,14 @@ html, body {
   height: 100%;
 }
 
+/* Ensure in-page anchors are not hidden behind the sticky header */
+:target {
+  scroll-margin-top: 96px;
+}
+@media (min-width: 768px) {
+  :target { scroll-margin-top: 112px; }
+}
+
 /* Iron/AI layered background */
 body {
   /* Luxury base: deep navy-black gradient with subtle burgundy/purple glows */

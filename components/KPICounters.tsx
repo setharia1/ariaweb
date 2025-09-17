@@ -2,6 +2,8 @@
 
 import { useEffect, useState, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
+import KpiCard from './KpiCard';
+import { KPI_ITEMS, KPI_FOOTNOTE } from '@/data/kpis';
 import MobileStacked from '@/components/MobileStacked';
 
 interface KPICounterProps {
@@ -60,25 +62,7 @@ const formatUSDShort = (n: number) => {
   return `$${Math.round(n).toLocaleString()}`;
 };
 
-const kpiData = [
-  {
-    label: 'Total AUM (as of 2025-08-05)',
-    value: 100000,
-    description: 'Target by 2027: $10.0M USD',
-    formatter: formatUSDShort,
-  },
-  {
-    label: 'Portfolio Companies',
-    value: 2,
-    description: 'Active investments'
-  },
-  {
-    label: 'Years of Experience',
-    value: 5,
-    suffix: '+',
-    description: 'Institutional investing'
-  }
-];
+const kpiData = KPI_ITEMS;
 
 export default function KPICounters() {
   const getIsMobileEnabled = () => {
@@ -97,48 +81,23 @@ export default function KPICounters() {
   }, []);
 
   const renderCard = (kpi: any, index: number, useMotion: boolean) => {
-    const content = (
-      <div className="card p-6 card-hover">
-        <div className="text-3xl md:text-4xl font-bold lux-number mb-2">
-          <KPICounter 
-            value={kpi.value}
-            prefix={kpi.prefix as any}
-            suffix={kpi.suffix as any}
-            format={kpi.formatter as any}
-            duration={2000 + index * 200}
-          />
-        </div>
-        <h3 className="font-serif text-lg font-semibold t-strong mb-2 lux-underline">
-          {kpi.label}
-        </h3>
-        <p className="text-sm t-muted">
-          {kpi.description}
-        </p>
-      </div>
-    );
-
-    if (!useMotion) return <div className="text-center group" key={kpi.label}>{content}</div>;
-
+    if (!useMotion) return <div className="text-center group" key={kpi.label}><KpiCard item={kpi} index={index} /></div>;
     return (
       <motion.div
         key={kpi.label}
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ 
-          duration: 0.5,
-          delay: index * 0.1,
-          ease: [0.16, 1, 0.3, 1]
-        }}
+        transition={{ duration: 0.5, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
         className="text-center group"
       >
-        {content}
+        <KpiCard item={kpi} index={index} />
       </motion.div>
     );
   };
 
   return (
-    <section className="py-10 md:py-14 bg-gradient-to-b from-transparent to-navy/20">
+    <section className="py-10 md:py-14 bg-gradient-to-b from-transparent to-navy/20" aria-labelledby="impact-heading">
       <div className="mx-auto max-w-7xl px-6 xl:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -147,9 +106,7 @@ export default function KPICounters() {
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className="text-center mb-16"
         >
-          <h2 className="font-serif text-3xl md:text-4xl t-strong mb-4">
-            Our Impact by the Numbers
-          </h2>
+          <h2 id="impact-heading" className="font-serif text-3xl md:text-4xl t-strong mb-4">Our Impact by the Numbers</h2>
           <p className="t-muted max-w-2xl mx-auto">
             Measurable results across our investment strategies and portfolio.
           </p>
@@ -166,6 +123,7 @@ export default function KPICounters() {
             {kpiData.map((kpi, index) => renderCard(kpi as any, index, true))}
           </div>
         )}
+        <p className="text-xs text-white/50 text-center mt-6">{KPI_FOOTNOTE}</p>
       </div>
     </section>
   );

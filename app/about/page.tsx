@@ -1,4 +1,5 @@
 import Section from '@/components/Section';
+import Image from 'next/image';
 
 export default function AboutPage() {
   return (
@@ -68,13 +69,17 @@ export default function AboutPage() {
           <h2 className="font-serif text-3xl t-strong mb-8 text-center">Who we are</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="card p-6 glowable text-center">
-              <img
-                src="/team/IMG_2093.jpg"
-                alt="Marcus Liassides headshot"
-                className="w-24 h-24 rounded-full object-cover mx-auto mb-4"
-                loading="eager"
-                decoding="async"
-              />
+              <div className="w-24 h-24 rounded-full overflow-hidden mx-auto mb-4">
+                <Image
+                  src="/team/IMG_2093.jpg"
+                  alt="Marcus Liassides headshot"
+                  width={96}
+                  height={96}
+                  sizes="96px"
+                  className="object-cover w-full h-full"
+                  priority
+                />
+              </div>
               <h3 className="font-serif text-xl t-strong">Marcus Liassides</h3>
               <p className="text-accent-a text-sm mb-3">Founder & Investment Partner</p>
               <p className="t-muted text-sm">Operator‑led investor focused on durable cash flows, clear unit economics, and responsible growth.</p>
