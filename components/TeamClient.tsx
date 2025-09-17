@@ -100,13 +100,7 @@ export default function TeamClient() {
       </Section>
 
       <Section>
-        {/* Floating orbs background */}
-        <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-          <div className="hero-orb purple w-48 h-48 top-8 left-6" />
-          <div className="hero-orb gold w-56 h-56 bottom-10 right-8" />
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {team.map((member, idx) => {
             const slug = toSlug(member.name);
             return (
@@ -115,19 +109,18 @@ export default function TeamClient() {
                 initial="hidden"
                 whileInView="show"
                 viewport={{ once: true, margin: '-50px' }}
-                transition={{ duration: 0.5, delay: reduceMotion ? 0 : idx * 0.06, ease: [0.16, 1, 0.3, 1] }}
+                transition={{ duration: 0.4, delay: reduceMotion ? 0 : idx * 0.06, ease: [0.25, 1, 0.5, 1] }}
                 variants={variants}
-                className="card p-6 glowable group relative overflow-hidden h-full focus-within:ring-2 focus-within:ring-accent-a"
+                className="matte-card elevate-hover p-6 group relative overflow-hidden h-full focus-within:ring-2 focus-within:ring-accent-a/50"
                 role="button"
                 tabIndex={0}
                 onClick={() => handleOpen(slug)}
                 onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleOpen(slug); } }}
               >
                 {/* Headshot / initials */}
-                <div className="w-24 h-24 rounded-full mx-auto mb-4 ring-1 ring-accent-a/30 relative">
-                  <div className="absolute inset-0 rounded-full p-[2px]" style={{ background: 'linear-gradient(135deg, rgba(75,0,130,0.6), rgba(201,166,53,0.6))' }} />
-                  <div className="absolute inset-[2px] rounded-full bg-black/40 backdrop-blur-sm" />
-                  <div className="absolute inset-[2px] rounded-full overflow-hidden flex items-center justify-center">
+                <div className="w-24 h-24 rounded-full mx-auto mb-4 relative">
+                  <div className="absolute inset-0 rounded-full ring-1 ring-white/15" />
+                  <div className="absolute inset-[1px] rounded-full overflow-hidden flex items-center justify-center">
                     {member.photo ? (
                       <Image
                         src={member.photo}
@@ -139,7 +132,7 @@ export default function TeamClient() {
                         priority={idx < 2}
                       />
                     ) : (
-                      <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-royal/30 to-accent-a/20 text-white/90">
+                      <div className="w-full h-full flex items-center justify-center bg-black/60 text-white/90">
                         <span className="text-xl font-semibold">{getInitials(member.name)}</span>
                       </div>
                     )}
@@ -149,16 +142,11 @@ export default function TeamClient() {
                 {/* Content */}
                 <h3 className="font-serif text-xl t-strong mb-1 clamp-1">{member.name}</h3>
                 <p className="text-royal text-sm mb-2">{member.title}</p>
-                <p className="t-muted text-sm clamp-2">{member.bio}</p>
+                <p className="text-white/80 text-sm clamp-2">{member.bio}</p>
 
-                {/* Chips */}
+                {/* Minimal chips: keep at most 1-2 */}
                 <div className="mt-3 flex flex-wrap gap-2 text-xs">
-                  {member.specialization?.split(',').map((s) => (
-                    <span key={s.trim()} className="px-2 py-1 rounded-md bg-white/5 ring-1 ring-white/10">
-                      {s.trim()}
-                    </span>
-                  ))}
-                  {member.years && <span className="px-2 py-1 rounded-md bg-white/5 ring-1 ring-white/10">{member.years}</span>}
+                  {member.years && <span className="outline-chip">{member.years}</span>}
                 </div>
 
                 {/* Socials on hover (email kept in modal) */}
