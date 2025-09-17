@@ -100,7 +100,7 @@ export default function TeamClient() {
       </Section>
 
       <Section>
-        <div className="mx-auto max-w-6xl px-2 sm:px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 place-items-stretch">
+        <div className="mx-auto max-w-6xl px-4 grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] justify-center gap-6">
           {team.map((member, idx) => {
             const slug = toSlug(member.name);
             return (
@@ -111,7 +111,7 @@ export default function TeamClient() {
                 viewport={{ once: true, margin: '-50px' }}
                 transition={{ duration: 0.4, delay: reduceMotion ? 0 : idx * 0.06, ease: [0.25, 1, 0.5, 1] }}
                 variants={variants}
-                className="matte-card elevate-hover p-6 group relative overflow-hidden h-full focus-within:ring-2 focus-within:ring-accent-a/50 flex flex-col"
+                className="matte-card elevate-hover p-6 group relative overflow-hidden h-full focus-within:ring-2 focus-within:ring-accent-a/50 flex flex-col max-w-[360px] w-full mx-auto"
                 role="button"
                 tabIndex={0}
                 onClick={() => handleOpen(slug)}
