@@ -149,14 +149,7 @@ export default function TeamClient() {
                   {member.years && <span className="outline-chip">{member.years}</span>}
                 </div>
 
-                {/* Socials on hover (email kept in modal) */}
-                <div className="opacity-0 group-hover:opacity-100 transition-opacity mt-auto pt-4 flex items-center justify-center gap-3">
-                  {member.linkedin && (
-                    <a href={member.linkedin} className="tooltip" data-tooltip="LinkedIn" aria-label={`${member.name} LinkedIn`} onClick={(e) => e.stopPropagation()}>
-                      <Linkedin className="w-5 h-5 text-white/80" />
-                    </a>
-                  )}
-                </div>
+                {/* Social links removed per request */}
               </motion.article>
             );
           })}
@@ -225,7 +218,6 @@ function ProfileModal({ member, onClose }: { member: TeamMember; onClose: () => 
           )}
         </div>
         <div className="mt-6 flex flex-wrap gap-3">
-          {member.linkedin && <a href={member.linkedin} className="btn-ghost">LinkedIn</a>}
           {member.email && <a href={`mailto:${member.email}`} className="btn-primary">Email</a>}
         </div>
       </div>
