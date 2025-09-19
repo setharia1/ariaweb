@@ -99,8 +99,8 @@ export default function TeamClient() {
         <WaveDivider className="mt-2" />
       </Section>
 
-      <Section>
-        <div className="mx-auto max-w-6xl px-4 grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] justify-center gap-6">
+      <Section containerClassName="max-w-7xl xl:max-w-[88rem] 2xl:max-w-[96rem]">
+        <div className="mx-auto max-w-[96rem] px-4 grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] justify-center gap-6">
           {team.map((member, idx) => {
             const slug = toSlug(member.name);
             return (
