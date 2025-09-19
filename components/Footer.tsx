@@ -3,6 +3,7 @@
 import { useMemo, useState } from 'react';
 import Link from 'next/link';
 import { Linkedin, Twitter, ArrowUp } from 'lucide-react';
+import { usePathname } from 'next/navigation';
 
 interface FooterProps {
   className?: string;
@@ -19,6 +20,8 @@ export default function Footer({
   contactEmail = 'invest@aria.capital',
   location = 'Lehi, UT',
 }: FooterProps) {
+  const pathname = usePathname?.() ?? '';
+  const isTeamPage = pathname === '/team';
   const year = useMemo(() => new Date().getFullYear(), []);
   const [email, setEmail] = useState('');
   const [emailTouched, setEmailTouched] = useState(false);
@@ -103,9 +106,11 @@ export default function Footer({
             <section aria-label="Contact" className="space-y-3">
               <h3 className="font-serif text-base tracking-[0.05em] text-[#E6E9EF]">Contact</h3>
               <div className="text-sm text-[#BFC6D1] space-y-1">
-                <p>
-                  <a className="hover:text-accent-a transition-colors" href={`mailto:${contactEmail}`}>{contactEmail}</a>
-                </p>
+                {!isTeamPage && (
+                  <p>
+                    <a className="hover:text-accent-a transition-colors" href={`mailto:${contactEmail}`}>{contactEmail}</a>
+                  </p>
+                )}
                 <p>{location}</p>
                 <p><a className="hover:text-accent-a transition-colors" href="#">Office</a></p>
               </div>
@@ -184,12 +189,16 @@ export default function Footer({
               <Link href="/terms" className="hover:text-accent-a transition-colors">Terms</Link>
             </div>
             <div className="flex items-center gap-3">
-              <Link href="https://www.linkedin.com/company/aria" aria-label="LinkedIn" className="p-2 rounded-md hover:text-accent-a focus:outline-none focus:ring-2 focus:ring-accent-a transition-colors">
-                <Linkedin className="w-4 h-4" />
-              </Link>
-              <Link href="#" aria-label="X" className="p-2 rounded-md hover:text-accent-a focus:outline-none focus:ring-2 focus:ring-accent-a transition-colors">
-                <Twitter className="w-4 h-4" />
-              </Link>
+              {!isTeamPage && (
+                <>
+                  <Link href="https://www.linkedin.com/company/aria" aria-label="LinkedIn" className="p-2 rounded-md hover:text-accent-a focus:outline-none focus:ring-2 focus:ring-accent-a transition-colors">
+                    <Linkedin className="w-4 h-4" />
+                  </Link>
+                  <Link href="#" aria-label="X" className="p-2 rounded-md hover:text-accent-a focus:outline-none focus:ring-2 focus:ring-accent-a transition-colors">
+                    <Twitter className="w-4 h-4" />
+                  </Link>
+                </>
+              )}
               <button
                 type="button"
                 onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}

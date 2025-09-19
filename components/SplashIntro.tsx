@@ -10,7 +10,7 @@ export default function SplashIntro({ src, mobileSrc }: { src: string; mobileSrc
   useEffect(() => {
     // Only once per session
     try {
-      const seen = sessionStorage.getItem("splashSeen") === "1";
+      const seen = sessionStorage.getItem("introSeen") === "1" || sessionStorage.getItem("splashSeen") === "1";
       if (!seen) setShow(true);
     } catch {}
   }, []);
@@ -31,7 +31,7 @@ export default function SplashIntro({ src, mobileSrc }: { src: string; mobileSrc
       fallbackTimer = window.setTimeout(() => {
         setFadeOut(true);
         setTimeout(() => {
-          try { sessionStorage.setItem("splashSeen", "1"); } catch {}
+          try { sessionStorage.setItem("introSeen", "1"); sessionStorage.setItem("splashSeen", "1"); } catch {}
           setShow(false);
         }, 700);
       }, expectedMs);
@@ -40,7 +40,7 @@ export default function SplashIntro({ src, mobileSrc }: { src: string; mobileSrc
     const handleEnded = () => {
       setFadeOut(true);
       setTimeout(() => {
-        try { sessionStorage.setItem("splashSeen", "1"); } catch {}
+        try { sessionStorage.setItem("introSeen", "1"); sessionStorage.setItem("splashSeen", "1"); } catch {}
         setShow(false);
       }, 700);
     };
@@ -83,7 +83,7 @@ export default function SplashIntro({ src, mobileSrc }: { src: string; mobileSrc
         onClick={() => {
           setFadeOut(true);
           setTimeout(() => {
-            try { sessionStorage.setItem("splashSeen", "1"); } catch {}
+            try { sessionStorage.setItem("introSeen", "1"); sessionStorage.setItem("splashSeen", "1"); } catch {}
             setShow(false);
           }, 700);
         }}

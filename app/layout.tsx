@@ -30,6 +30,8 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <head />
       <body className="min-h-[100svh] flex flex-col bg-app tron-grid">
+        {/* Skip link for accessibility */}
+        <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[10000] focus:px-4 focus:py-2 focus:rounded-md focus:bg-black/70 focus:text-white focus:ring-2 focus:ring-accent-a">Skip to content</a>
         <ThemeProvider>
           <DevUtils />
           {/* Background (z-0) */}
@@ -51,7 +53,7 @@ export default function RootLayout({
           {/* Site content (z-10) */}
           <div className="relative z-10 flex flex-col min-h-[100svh]">
             <Header />
-            <div className="flex-1">
+            <div id="main" className="flex-1">
               <PageTransition>
                 {children}
               </PageTransition>
